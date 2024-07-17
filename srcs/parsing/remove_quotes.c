@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:13:08 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/17 09:27:54 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:42:51 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char *ft_dup_without_top_quote(t_master_shell *md, char *str)
 	{
 		result = ft_substr(str, 1, ft_strlen(str) - 1);
 		if (!result)
-			return (ft_free_cmd_tab(str), ft_free(md));
+			return (ft_free_cmd_tab(str), ft_free(md)); // ?? free tab
 		return (result);
 	}
 	return (ft_strdup(str));

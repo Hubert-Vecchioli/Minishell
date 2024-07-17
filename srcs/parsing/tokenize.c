@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:03:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/17 09:28:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:45:51 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_cmd_tbl *ft_generate_cmd_tbl(t_master_shell *md, char **str_arr)
 	}
 	ft_expand_env_var(md, cmd_tab);
 	ft_expand_tilde(md, cmd_tab);
-	//ft_expand_heredocs(cmd_tab, md);
 	ft_rm_quotes_tables_and_lowercase_builtin(md, cmd_tab);
 	ft_tok_args_content_listdup(md, cmd_tab);
 	ft_free_split(str_arr);

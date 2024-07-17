@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:44:13 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/17 09:27:33 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:49:13 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_clean_prompt(int sig)
 {
 	(void) sig;
+	g_sigint = 1;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
