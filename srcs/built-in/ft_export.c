@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 17:28:41 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:25:31 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	dup_to_list(char **av, t_list **env)
 	ft_lstadd_back(env, new_node);
 	return (0);
 }
-static int	ft_strchr_count(const char *str, int to_find)
+static int	ft_strchr_count(const char *str, char to_find)
 {
 	int	i;
 
@@ -75,29 +75,21 @@ int	ft_export(int ac, char **av, t_list **env)
 	av++;
 	while (*av)
 	{
-		if (ft_strchr_count(*av, 61))
+		if (ft_strchr_count(*av, '='))
 		{
-			// si il y a un =, on cherche ce =
-			tmp = ft_substr(*av, 0, ft_strchr_count(*av, 61) - 1);
-			// MALLOC PROTECT is missing
-			ft_is_var_in_env(tmp, env);
-			free(tmp);
-			ft_putstr_fd("ejfhejfjenfe",1);
+				tmp = ft_substr(*av, 0, ft_strchr_count(*av, '='));
+				ft_is_var_in_env(tmp, env);
+				free(tmp);
+			if (ft_has_special_char(*av))
+			{
+				ft_putstr_fd("minishell: export: `", 2);
+				ft_putchar_fd(ft_has_special_char(*av), 2);
+				ft_putendl_fd("': not a valid identifier", 2);
+			}
+			else if (dup_to_list(av, env))
+				return (1);
 		}
-		else
-		{
-			ft_is_var_in_env(tmp, env);// pb de =
-		}
-		if (ft_has_special_char(*av))
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putchar_fd(ft_has_special_char(*av), 2);
-			ft_putendl_fd("': not a valid identifier", 2);
-		}
-		else if (dup_to_list(av, env))
-			return (1);
 		av++;
 	}
-	ft_putstr_fd("GDGDGFYEGFHEFE",1);
 	return (0);
 }
