@@ -1,8 +1,8 @@
-lucie@lucie-XPS:~/Code/minishell$ var="file 2"
-lucie@lucie-XPS:~/Code/minishell$ echo bl > $var
+var="file 2"
+echo bl > $var
 bash: $var: ambiguous redirect
 
 
-lucie@lucie-XPS:~/Code/minishell$ var="echo hey"
-lucie@lucie-XPS:~/Code/minishell$ $var
+var="echo hey"
+$var
 hey
