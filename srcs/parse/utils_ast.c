@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:04:58 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:43:37 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,6 @@ char	**arg_to_tab(t_arg *arg)
 	}
 	ret[i] = NULL;
 	return (ret);
-}
-
-int	tabsize(char **tab)
-{
-	int	size;
-
-	size = 0;
-	if (!tab)
-		return (0);
-	while (tab[size])
-		size++;
-	return (size);
 }
 
 int	is_redirect(char *str)

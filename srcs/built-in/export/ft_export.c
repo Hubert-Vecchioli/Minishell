@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:46:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:28:41 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,24 @@ static int	dup_to_list(char **av, t_list **env)
 	ft_lstadd_back(env, new_node);
 	return (0);
 }
+static int	ft_strchr_count(const char *str, int to_find)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != (char)to_find)
+	{
+		if (!str[i])
+			return (0);
+		i++;
+	}
+	return (i);
+}
 
 int	ft_export(int ac, char **av, t_list **env)
 {
+	char *tmp;
+	
 	if (ac == 0)
 	{
 		ft_env(*env);
@@ -60,6 +75,19 @@ int	ft_export(int ac, char **av, t_list **env)
 	av++;
 	while (*av)
 	{
+		if (ft_strchr_count(*av, 61))
+		{
+			// si il y a un =, on cherche ce =
+			tmp = ft_substr(*av, 0, ft_strchr_count(*av, 61) - 1);
+			// MALLOC PROTECT is missing
+			ft_is_var_in_env(tmp, env);
+			free(tmp);
+			ft_putstr_fd("ejfhejfjenfe",1);
+		}
+		else
+		{
+			ft_is_var_in_env(tmp, env);// pb de =
+		}
 		if (ft_has_special_char(*av))
 		{
 			ft_putstr_fd("minishell: export: `", 2);
@@ -70,5 +98,6 @@ int	ft_export(int ac, char **av, t_list **env)
 			return (1);
 		av++;
 	}
+	ft_putstr_fd("GDGDGFYEGFHEFE",1);
 	return (0);
 }

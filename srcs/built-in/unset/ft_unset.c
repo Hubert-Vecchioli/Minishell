@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 00:13:50 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:24:20 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_strncmp_env(const char *str1, const char *str2, size_t n)
 	return (1);
 }
 
-static int	ft_is_var_in_env(char *key, t_list **lst_env)
+int	ft_is_var_in_env(char *key, t_list **lst_env)
 {
 	t_list	*temp;
 	t_list	*prev;
