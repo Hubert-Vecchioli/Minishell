@@ -6,13 +6,13 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 04:40:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 01:23:47 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:26:34 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	redir_input(char *file)
+static int	ft_redir_input(char *file)
 {
 	int	new_fd;
 
@@ -20,14 +20,14 @@ static int	redir_input(char *file)
 	if (new_fd == -1)
 	{
 		perror(file);
-		return (-1);
+		return (0);
 	}
 	dup2(new_fd, STDIN_FILENO);
 	close(new_fd);
-	return (0);
+	return (1);
 }
 
-static int	redir_heredoc(char *file)
+static int	ft_redir_heredoc(char *file)
 {
 	int		fd;
 
@@ -35,7 +35,7 @@ static int	redir_heredoc(char *file)
 	if (fd == -1)
 	{
 		perror("/tmp/.heredoc");
-		return (-1);
+		return (0);
 	}
 	signal(SIGINT, ft_handle_sigint_heredoc);
 	ft_heredoc(fd, file);
@@ -45,14 +45,14 @@ static int	redir_heredoc(char *file)
 	if (fd == -1)
 	{
 		perror("/tmp/.heredoc");
-		return (-1);
+		return (0);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (0);
+	return (1);
 }
 
-static int	redir_output(char *file)
+static int	ft_redir_output(char *file)
 {
 	int	new_fd;
 
@@ -60,14 +60,14 @@ static int	redir_output(char *file)
 	if (new_fd == -1)
 	{
 		perror(file);
-		return (-1);
+		return (0);
 	}
 	dup2(new_fd, STDOUT_FILENO);
 	close(new_fd);
-	return (0);
+	return (1);
 }
 
-static int	redir_append(char *file)
+static int	ft_redir_append(char *file)
 {
 	int		new_fd;
 
@@ -75,29 +75,29 @@ static int	redir_append(char *file)
 	if (new_fd == -1)
 	{
 		perror(file);
-		return (-1);
+		return (0);
 	}
 	dup2(new_fd, STDOUT_FILENO);
 	close(new_fd);
-	return (0);
+	return (1);
 }
 
 int	ft_exec_redir(t_redir *redir)
 {
-	int	ret;
+	int	i;
 
-	ret = 0;
+	i = 1;
 	while (redir)
 	{
 		if (redir->type == INPUT)
-			ret = redir_input(redir->file);
-		else if (redir->type == HEREDOC)
-			ret = redir_heredoc(redir->file);
+			i = ft_redir_input(redir->file);
 		else if (redir->type == OUTPUT)
-			ret = redir_output(redir->file);
+			i = ft_redir_output(redir->file);
 		else if (redir->type == APPEND)
-			ret = redir_append(redir->file);
-		if (ret != 0)
+			i = ft_redir_append(redir->file);
+		else if (redir->type == HEREDOC)
+			i = ft_redir_heredoc(redir->file);
+		if (i == 0)
 			return (-1);
 		redir = redir->next;
 	}

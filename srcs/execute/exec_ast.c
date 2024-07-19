@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 12:05:10 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:18:51 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 	return (ret);
 }
 
-int	exec_arg(t_ast *ast, t_list **lst_env)
+int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 {
 	char	**tab;
 	int		ret;
@@ -93,7 +93,7 @@ int	exec_arg(t_ast *ast, t_list **lst_env)
 	return (ret);
 }
 
-void	exec_ast(t_ast *ast, t_list **lst_env, int *status)
+void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 {
 	pid_t	pid;
 	t_arg	*test;
@@ -102,7 +102,7 @@ void	exec_ast(t_ast *ast, t_list **lst_env, int *status)
 		return ;
 	test = ast->left;
 	if (ast->type == COMMAND && test && test->arg && ft_is_builtin_fct(test->arg))
-		*status = exec_arg(ast, lst_env);
+		*status = ft_execute_arg(ast, lst_env);
 	else
 	{
 		pid = fork();
@@ -111,7 +111,7 @@ void	exec_ast(t_ast *ast, t_list **lst_env, int *status)
 			if (ast->type == PIPE)
 				ft_pipe(ast, lst_env, status);
 			else if (ast->type == COMMAND)
-				*status = exec_arg(ast, lst_env);
+				*status = ft_execute_arg(ast, lst_env);
 			ft_clean_env_and_history(lst_env);
 			ft_clean_saved_ast_link();
 			exit(*status);

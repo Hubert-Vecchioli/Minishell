@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:08:29 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:18:24 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	intern_exec(char *line, t_list *lst_env)
 	ft_save_ast_link(&ast);
 	ft_free_split(&tab);
 	//print_ast(ast, 0); FOR DEBUG !
-	exec_ast(ast, &lst_env, &status);
+	ft_execute_ast(ast, &lst_env, &status);
 	ft_set_status(status);
 	ft_clean_ast(&ast);
 }

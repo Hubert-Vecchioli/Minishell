@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 12:07:02 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:18:14 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_save_ast_link(t_ast **ast);
 void	print_ast(t_ast *ast, int level);
 void	ft_clean_env_and_history(t_list **lst_env);
 void	ft_clean_ast(t_ast **ast);
-void	exec_ast(t_ast *ast, t_list **lst_env, int *status);
+void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
 void	ft_clean_prompt(int sig);
 void	ft_handle_sigint_heredoc(int sig);
 void	ft_pipe(t_ast *ast, t_list **lst_env, int *status);
