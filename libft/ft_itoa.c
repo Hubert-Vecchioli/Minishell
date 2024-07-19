@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:49:47 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/17 16:17:56 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/17 23:43:33 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_itoa(int nb)
 	n = nb;
 	res_size = int_size(n);
 	str = malloc((res_size + 1) * sizeof(char));
-	if (str == NULL)
+	if (!str)
 		return (NULL);
 	str[res_size--] = 0;
 	if (n == 0)

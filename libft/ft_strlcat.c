@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:14:42 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/18 11:15:03 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:32:25 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	dest_size;
 	size_t	src_len;
 
-	if ((dest == NULL || src == NULL) && !size)
+	if ((!dest || !src) && !size)
 		return (0);
 	i = 0;
 	dest_size = ft_strlen(dest);

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:19:55 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/10 17:57:21 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:12:50 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strndup(const char *src, int wordlen)
 	int		i;
 
 	copy_str = ft_calloc((wordlen + 1), sizeof(char));
-	if (copy_str == NULL)
+	if (!copy_str)
 		return (0);
 	i = 0;
 	while (src[i] && i < wordlen)

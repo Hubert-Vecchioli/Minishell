@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 01:57:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/18 11:36:43 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:37:47 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *str, int to_find)
 	i = 0;
 	while (str[i] != (char)to_find)
 	{
-		if (str[i] == '\0')
+		if (!str[i])
 			return ((char *) 0);
 		i++;
 	}

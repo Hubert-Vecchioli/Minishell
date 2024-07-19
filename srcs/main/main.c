@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:20 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/17 09:27:37 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:59:43 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_master_shell	master_data;
-	(void) av;
-	
+	t_list		*lst_env;
+	t_prompt	prompt;
+
+	(void)av;
 	if (ac != 1)
-		return (printf("Error: Minishell has no arg, Minishell needs no arg"), 0);
-	ft_init(&master_data, env);
-	ft_minishell(&master_data);
-	free_at_exit(&master_data);
-	exit(master_data.exit_code);
-	return (0);
+		return (printf("Error: Minishell has no arg, \
+			Minishell needs no arg"), 0);
+	if (intern_init(&prompt, env, &lst_env))
+		return (1);
+	ft_minishell(&prompt, lst_env);
+	ft_clean_env_and_history(&lst_env);
+	return (ft_get_status());
 }

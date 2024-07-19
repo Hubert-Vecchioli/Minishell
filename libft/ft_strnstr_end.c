@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:31:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/10 17:31:35 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:12:00 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strnstr_end(const char *str, const char *to_find, size_t n)
 	size_t	i;
 	size_t	j;
 
-	if ((str == NULL || to_find == NULL) && !n)
+	if ((!str || !to_find) && !n)
 		return (NULL);
 	if (!*to_find)
 		return ((char *)str);

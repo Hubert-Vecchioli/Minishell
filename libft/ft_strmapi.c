@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 12:41:16 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/19 13:39:46 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:32:30 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!s ||!f)
 		return (NULL);
 	result = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (result == NULL)
+	if (!result)
 		return (NULL);
 	i = 0;
 	while (s[i])

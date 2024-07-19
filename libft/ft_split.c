@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:51:52 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/20 00:38:30 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:32:12 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c)
 	int		j;
 
 	split = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
-	if (split == NULL || !s)
+	if (!split || !s)
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -73,7 +73,7 @@ char	**ft_split(char const *s, char c)
 		if (ft_count_word_len(s, c, i))
 		{
 			split[j] = ft_substr(s, i, ft_count_word_len(s, c, i));
-			if (split[j] == NULL)
+			if (!split[j])
 				return (ft_free(split, j));
 			j++;
 		}

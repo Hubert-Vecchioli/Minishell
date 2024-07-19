@@ -6,13 +6,14 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 01:01:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/10 17:32:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:12:14 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 # ifndef BUFFER_SIZE
@@ -59,6 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t n);
 char	**ft_split(char const *s, char c);
 char	**ft_split_charset(char const *s, char *charset);
+char	*ft_realpath(const char *path, char *resolved_path);
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -87,6 +89,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	*ft_realloc(void *ptr, size_t size);
 void	*ft_calloc(size_t n, size_t size);
 void	*ft_memchr(const void *str, int c, size_t n);
 void	*ft_memset(void *ptr, int x, size_t n);

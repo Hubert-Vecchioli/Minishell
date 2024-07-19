@@ -6,62 +6,86 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 01:46:32 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/17 09:27:19 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:01:39 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_generate_prompt(t_master_shell *master_data)
+static int	ft_gen_prpt_no_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
 {
-	char *pwd;
-	
-	if (!master_data->user)
+	char	*temp;
+	char	*prompt_char;
+
+	temp = ft_strjoin(prompt->user, "@minishell:");
+	if (!temp)
 	{
-		pwd = getcwd(NULL, 0);
-		if (!ft_strnstr_end(pwd, master_data->user, ft_strlen(pwd)))
-			ft_generate_prompt_no_tilde(master_data, pwd);
+		perror("minishell: malloc failure");
+		free(prompt->user);
+		return (free(pwd), free(prompt), ft_clean_env_and_history(lst_env), exit(1), 0);
+	}
+	prompt_char = ft_strjoin(temp, pwd);
+	if (!prompt_char)
+	{
+		perror("minishell: malloc failure");
+		free(prompt->user);
+		free(prompt);
+		return (free(pwd), free(temp), ft_clean_env_and_history(lst_env), exit(1), 0);
+	}
+	prompt->prompt_to_display = ft_strjoin(prompt_char, "$ ");
+	return (free(pwd), free(temp), free(prompt_char), 1);
+}
+
+static int	ft_gen_prpt_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
+{
+	char	*pwd_var;
+	char	*temp;
+	char	*prompt_char;
+
+	temp = ft_strjoin(prompt->user, "@minishell:~");
+	if (!temp)
+	{
+		perror("minishell: malloc failure");
+		free(prompt->user);
+		return (free(pwd), free(prompt), ft_clean_env_and_history(lst_env), exit(1), 0);
+	}
+	pwd_var = ft_strnstr_end(pwd, prompt->user, ft_strlen(pwd));
+	prompt_char = ft_strjoin(temp, pwd_var);
+	if (!prompt_char)
+	{
+		perror("minishell: malloc failure");
+		free(prompt->user);
+		free(prompt);
+		return (free(pwd), free(temp), ft_clean_env_and_history(lst_env), exit(1), 0);
+	}
+	prompt->prompt_to_display = ft_strjoin(prompt_char, "$ ");
+	return (free(pwd), free(temp), free(prompt_char), 1);
+}
+
+char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt)
+{
+	if (!prompt->prompt_to_display)
+		free(prompt->prompt_to_display);
+	if (!prompt->path)
+		free(prompt->path);
+	if (prompt->user)
+	{
+		prompt->path = ft_getcwd();
+		if (!ft_strnstr_end(prompt->path, prompt->user
+			, ft_strlen(prompt->path)))
+			ft_gen_prpt_no_tilde(&lst_env, prompt, prompt->path);
 		else
-			ft_generate_prompt_tilde(master_data, pwd);
+			ft_gen_prpt_tilde(&lst_env, prompt, prompt->path);// MALLOC PROTEC IS MISSING
+		return (prompt->prompt_to_display);
 	}
 	else
 	{
-		master_data->prompt_to_display = ft_strdup("unknow_user@minihell$ ");
-		if (master_data->prompt_to_display == NULL)
-			return (ft_free(master_data), ft_exit('m'), 0); // TO REVIEW HOW TO EXIT
-		return (1);
+		prompt->prompt_to_display = ft_strdup("unknow_user@minihell$ ");
+		if (!prompt->prompt_to_display)
+		{
+			free(prompt->user);
+			return (ft_clean_env_and_history(&lst_env), NULL);
+		}
+		return (prompt->prompt_to_display);
 	}
-}
-
-int	ft_generate_prompt_no_tilde(t_master_shell *master_data, char *pwd)
-{
-	char *temp;
-	char *prompt;
-	
-	temp = ft_strjoin(master_data->user, "@minishell:");
-	if (temp == NULL)
-		return (free(pwd), ft_free(master_data), ft_exit('m'), 0); // TO REVIEW HOW TO EXIT
-	prompt = ft_strjoin(temp, pwd);
-	if (prompt == NULL)
-		return (free(pwd), free(temp), ft_free(master_data), ft_exit('m'), 0); // TO REVIEW HOW TO EXIT
-	master_data->prompt_to_display = ft_strjoin(prompt, "$ ");
-	return (free(pwd), free(temp), free(prompt), 1);
-}
-
-
-int	ft_generate_prompt_tilde(t_master_shell *master_data, char *pwd)
-{
-	char *pwd_var;
-	char *temp;
-	char *prompt;
-
-	temp = ft_strjoin(master_data->user, "@minishell:~");
-	if (temp == NULL)
-		return (free(pwd), ft_free(master_data), ft_exit('m'), 0); // TO REVIEW HOW TO EXIT
-	pwd_var = ft_strnstr_end(pwd, master_data->user, ft_strlen(pwd));
-	prompt = ft_strjoin(temp, pwd_var);
-	if (prompt == NULL)
-		return (free(pwd), free(temp), ft_free(master_data), ft_exit('m'), 0); // TO REVIEW HOW TO EXIT
-	master_data->prompt_to_display = ft_strjoin(prompt, "$ ");
-	return (free(pwd), free(temp), free(prompt), 1);
 }

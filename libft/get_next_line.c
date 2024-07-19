@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 02:55:47 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/19 12:41:18 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:33:00 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_next_line(int fd)
 		buffer[fd].size = 0;
 	line = ft_bfrjoin(NULL, &buffer[fd], line_len);
 	line_len += buffer[fd].size;
-	if (line == NULL)
+	if (!line)
 		return (NULL);
 	buffer[fd].size = ft_max(1, buffer[fd].size);
 	while (buffer[fd].size > 0 && ft_strchr_oth(line, '\n', line_len) == 0)
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 		if (buffer[fd].size > 0)
 			line = ft_bfrjoin(line, &buffer[fd], line_len);
 		line_len += buffer[fd].size;
-		if (line == NULL || line_len == 0 || buffer[fd].size == -1)
+		if (!line || line_len == 0 || buffer[fd].size == -1)
 			return (free(line), buffer[fd].size = 0, NULL);
 	}
 	return (ft_clean(line, &buffer[fd], line_len, '\n'));

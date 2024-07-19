@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:06:02 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/05/19 13:39:28 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:32:52 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t n)
 	if (ft_strlen(s) - start < n)
 		n = ft_strlen(s) - start;
 	copy_str = malloc((n + 1) * sizeof(char));
-	if (copy_str == NULL)
+	if (!copy_str)
 		return (0);
 	i = 0;
 	while (i < n)
