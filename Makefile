@@ -9,6 +9,7 @@ SRCS 			=	$(addprefix srcs/main/, $(addsuffix .c, \
 					ft_clean_prompt \
 					easy_errors \
 					easy_errors_utils \
+					expand_tilde \
 					init_ast))
 SRCS 			+=	$(addprefix srcs/parse/, $(addsuffix .c, \
 					print_ast \

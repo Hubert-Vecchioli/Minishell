@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:20 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/18 16:59:43 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:38:38 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1)
 		return (printf("Error: Minishell has no arg, \
-			Minishell needs no arg"), 0);
+Minishell needs no arg"), 0);
 	if (intern_init(&prompt, env, &lst_env))
 		return (1);
 	ft_minishell(&prompt, lst_env);

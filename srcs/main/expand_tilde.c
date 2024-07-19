@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:13:59 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 10:22:25 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:36:06 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,26 @@ static int	ft_is_in_quote(char *line, int i)
 }
 
 
-static int	ft_expand_cmd_tilde(char *line, int *i)
+static int	ft_expand_cmd_tilde(char *line, int i)
 {
 	char 	*bf_var;
 	char 	*aft_var;
-	char	*tmp;
 	char	*home;
 	int		size;
 
 	size = ft_strlen(line);
-	bf_var = ft_substr(line, 0, *i);
-	aft_var = ft_substr(line, *i + 1, size - (*i + 1));
-	if (!bf_var || !aft_var || !home)
+	bf_var = ft_substr(line, 0, i);
+	aft_var = ft_substr(line, i + 1, size - (i + 1));
+	if (!bf_var || !aft_var)
 		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), 0);
+	//MALLOC PROTECT IS MISSING
 	home = getenv("HOME");
-	tmp = ft_strjoin(bf_var, home);
-	if (!tmp)
-		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), 0);
-	*i = ft_strlen(tmp) - 1;
-	free(bf_var);
 	free(line);
-	line = ft_strjoin(tmp, aft_var);
+	line = ft_three_strjoin(bf_var, home, aft_var);
+	//MALLOC PROTECT IS MISSING
 	if (!line)
-		return (free(tmp), free(aft_var), perror("Minishell: Malloc failure"), 0);
-	free(tmp);
+		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), 0);
+	free(bf_var);
 	free(aft_var);
 	return (1);
 }
@@ -79,7 +75,8 @@ int	ft_expand_tilde(char *line)
 		return (0);
 	while (line[++i])
 	{
-		if (line[i] != '~' || (line[i + 1] && (!ft_iswhitespace(line[i + 1]) && line[i + 1] != 47)))
+		if (line[i] != '~' || (line[i + 1] && (!ft_iswhitespace(line[i + 1]) && line[i + 1] != 47)) 
+			|| (i > 0 && !ft_iswhitespace(line[i - 1])))
 			continue ;
 		if (ft_is_in_quote(line, i))
 			continue ;
