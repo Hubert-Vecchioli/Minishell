@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:59:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:36:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/21 00:03:08 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	ft_has_n_flag( char *arg)
 {
-	if (arg && arg[0] == '-' && arg[1] == 'n')
+	if (arg && arg[0] == '-' && arg[1] == 'n' && !arg[2])
 		return (1);
 	return (0);
 }
@@ -28,7 +28,7 @@ int	ft_echo(int ac, char **av)
 	has_n_flag = 0;
 	ac--;
 	av++;
-	while (ac > 0 && ft_has_n_flag( *av))
+	while (ac > 0 && ft_has_n_flag(*av))
 	{
 		if (ft_strchr(*av, 'n'))
 			has_n_flag = 1;

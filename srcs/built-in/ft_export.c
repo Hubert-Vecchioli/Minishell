@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 21:25:31 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:35:01 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,14 @@ static int	ft_strchr_count(const char *str, char to_find)
 int	ft_export(int ac, char **av, t_list **env)
 {
 	char *tmp;
-	
-	if (ac == 0)
+	(void) ac;
+	av++;
+	if (!*av)
 	{
 		ft_env(*env);
 		return (0);
 	}
-	av++;
+	
 	while (*av)
 	{
 		if (ft_strchr_count(*av, '='))

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:13:59 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 21:20:03 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:29:51 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static char	*ft_expand_cmd_tilde(char *line, int i)
 	bf_var = ft_substr(line, 0, i);
 	aft_var = ft_substr(line, i + 1, size - (i + 1));
 	if (!bf_var || !aft_var)
-		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), NULL);
+		return (free(bf_var), free(aft_var), ft_putendl_fd("minishell: Malloc failure", 2), NULL);
 	//MALLOC PROTECT IS MISSING
 	home = getenv("HOME");
 	free(line);
 	line = ft_three_strjoin(bf_var, home, aft_var);
 	//MALLOC PROTECT IS MISSING
 	if (!line)
-		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), NULL);
+		return (free(bf_var), free(aft_var), ft_putendl_fd("minishell: Malloc failure", 2), NULL);
 	free(bf_var);
 	free(aft_var);
 	return (line);

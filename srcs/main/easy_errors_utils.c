@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 09:01:48 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:21:42 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:28:57 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_has_redir_before_pipe(char *line)
 	while (line[++i])
 	{
 		if (line[i] == '|' && line[i - 1] == '>')
-			return(perror("minishell: syntax error near unexpected char: '>'\n"), 1);
+			return(ft_putendl_fd("minishell: syntax error near unexpected char: '>'", 2), 1);
 		if (line[i] == '|' && line[i - 1] == '<')
-			return(perror("minishell: syntax error near unexpected char: '<'\n"), 1);
+			return(ft_putendl_fd("minishell: syntax error near unexpected char: '<'", 2), 1);
 	}
 	return (0);
 }
@@ -39,11 +39,11 @@ int	ft_has_easy_syntax_error(char *line)
 			while (ft_iswhitespace(line[i]))
 				i++;
 			if (line[i] == '|')
-				return(perror("minishell: syntax error near unexpected char: '|'\n"), 1);
+				return(ft_putendl_fd("minishell: syntax error near unexpected char: '|'", 2), 1);
 			if ((line[i] == '<' && line[i + 1] != '<'))
-				return(perror("minishell: syntax error near unexpected char: '<'\n"), 1);
+				return(ft_putendl_fd("minishell: syntax error near unexpected char: '<'", 2), 1);
 			if (line[i] == '>' )
-				return(perror("minishell: syntax error near unexpected char: '>'\n"), 1);
+				return(ft_putendl_fd("minishell: syntax error near unexpected char: '>'", 2), 1);
 		}
 	}
 	return (0);

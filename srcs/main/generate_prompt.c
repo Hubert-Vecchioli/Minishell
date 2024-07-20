@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 01:46:32 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 21:47:14 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:29:24 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static int	ft_gen_prpt_no_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
 	temp = ft_strjoin(prompt->user, "@minishell:");
 	if (!temp)
 	{
-		perror("minishell: malloc failure");
+		ft_putendl_fd("minishell: malloc failure", 2);
 		free(prompt->user);
 		return (free(pwd), free(prompt), ft_clean_env_and_history(lst_env), exit(1), 0);
 	}
 	prompt_char = ft_strjoin(temp, pwd);
 	if (!prompt_char)
 	{
-		perror("minishell: malloc failure");
+		ft_putendl_fd("minishell: malloc failure", 2);
 		free(prompt->user);
 		free(prompt);
 		return (free(pwd), free(temp), ft_clean_env_and_history(lst_env), exit(1), 0);
@@ -45,7 +45,7 @@ static int	ft_gen_prpt_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
 	temp = ft_strjoin(prompt->user, "@minishell:~");
 	if (!temp)
 	{
-		perror("minishell: malloc failure");
+		ft_putendl_fd("minishell: malloc failure", 2);
 		free(prompt->user);
 		return (free(pwd), free(prompt), ft_clean_env_and_history(lst_env), exit(1), 0);
 	}
@@ -53,7 +53,7 @@ static int	ft_gen_prpt_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
 	prompt_char = ft_strjoin(temp, pwd_var);
 	if (!prompt_char)
 	{
-		perror("minishell: malloc failure");
+		ft_putendl_fd("minishell: malloc failure", 2);
 		free(prompt->user);
 		free(prompt);
 		return (free(pwd), free(temp), ft_clean_env_and_history(lst_env), exit(1), 0);

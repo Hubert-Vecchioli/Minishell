@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 23:30:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 04:17:19 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:12:18 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_pwd(int ac, char **av)
 	}
 	else
 	{
-		perror("Minishell: pwd: error retrieving current directory: getcwd: cannot access directory");
+		perror("minishell: pwd: error retrieving current directory: getcwd: cannot access directory");
 	}
 	return (0);
 }

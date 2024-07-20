@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 21:48:29 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:51:17 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 		free(prompt->prompt_to_display);
 		if (!line)
 			break ;
-		if (!*line)
+		if (!*line || (ft_strlen(line) == 1 && line[0] == ':'))
 		{
 			free(line);
 			continue ;
