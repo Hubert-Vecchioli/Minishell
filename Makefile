@@ -27,7 +27,8 @@ MAINFILES 		= main.c \
 				easy_errors_utils.c \
 				init_ast.c  \
 				expand_tilde.c \
-				expand_env.c
+				expand_env.c \
+				remove_quotes.c
 UTILSFILES 		= utils_list.c \
 				utils_ast.c
 EXECUTEFILES 	= exec_ast.c \

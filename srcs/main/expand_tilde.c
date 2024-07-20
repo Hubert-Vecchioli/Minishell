@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:13:59 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 04:11:22 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:20:03 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_is_in_quote(char *line, int i)
 }
 
 
-static int	ft_expand_cmd_tilde(char *line, int i)
+static char	*ft_expand_cmd_tilde(char *line, int i)
 {
 	char 	*bf_var;
 	char 	*aft_var;
@@ -53,26 +53,26 @@ static int	ft_expand_cmd_tilde(char *line, int i)
 	bf_var = ft_substr(line, 0, i);
 	aft_var = ft_substr(line, i + 1, size - (i + 1));
 	if (!bf_var || !aft_var)
-		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), 0);
+		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), NULL);
 	//MALLOC PROTECT IS MISSING
 	home = getenv("HOME");
 	free(line);
 	line = ft_three_strjoin(bf_var, home, aft_var);
 	//MALLOC PROTECT IS MISSING
 	if (!line)
-		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), 0);
+		return (free(bf_var), free(aft_var), perror("Minishell: Malloc failure"), NULL);
 	free(bf_var);
 	free(aft_var);
-	return (1);
+	return (line);
 }
 
-int	ft_expand_tilde(char *line)
+char	*ft_expand_tilde(char *line)
 {
 	int		i;
 
 	i = -1;
 	if (!line)
-		return (0);
+		return (NULL);
 	while (line[++i])
 	{
 		if (line[i] != '~' || (line[i + 1] && (!ft_iswhitespace(line[i + 1]) && (line[i + 1] != '/' && line[i + 1] != 37))) 
@@ -80,7 +80,7 @@ int	ft_expand_tilde(char *line)
 			continue ;
 		if (ft_is_in_quote(line, i))
 			continue ;
-		ft_expand_cmd_tilde(line, i);
+		line = ft_expand_cmd_tilde(line, i);
 	}
-	return (1);
+	return (line);
 }

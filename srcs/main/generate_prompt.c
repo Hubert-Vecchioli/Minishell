@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 01:46:32 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 04:16:25 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:47:14 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ static int	ft_gen_prpt_tilde(t_list **lst_env, t_prompt *prompt, char *pwd)
 
 char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt)
 {
-	if (!prompt->prompt_to_display)
-		free(prompt->prompt_to_display);
-	if (!prompt->path)
-		free(prompt->path);
 	if (prompt->user)
 	{
 		prompt->path = getcwd(NULL, 0);

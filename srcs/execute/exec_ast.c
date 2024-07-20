@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:33:29 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:50:19 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static char	*sub_solve_path(char **tab, t_list **lst_env)
 
 	path_value = ft_getenv("PATH=", *lst_env);
 	cpath = ft_find_path(path_value, tab[0]);
-	printf("path: %s & tab: %s", cpath, tab[0]);
 	free(path_value);
 	if (!cpath)
 		perror("minishell: error to find path");
@@ -110,7 +109,7 @@ void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 		if (!pid)
 		{
 			if (ast->type == PIPE)
-				ft_pipe(ast, lst_env, status);
+				ft_pipe(ast, lst_env, status);		
 			else if (ast->type == COMMAND)
 				*status = ft_execute_arg(ast, lst_env);
 			ft_clean_env_and_history(lst_env);

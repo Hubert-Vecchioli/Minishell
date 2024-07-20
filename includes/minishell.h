@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:21:09 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:23:14 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ char	*ft_subcdpath(char *cdpath); // to review
 char	*ft_find_path(char *path, char *key);
 char	*ft_three_strjoin(char *str1, char *str2, char *str3);
 char	*ft_getenv_value(char *key, t_list *lst_env);
+char	*ft_expand_tilde(char *line);
+char	*ft_expand_var(char *line, t_list *lst_env);
+char	*ft_remove_quotes(char *line);
 char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt);
 char	**ft_convert_lst_to_tab(t_list *lst_env);
 char	**ft_split_arg(t_arg *arg);
@@ -75,9 +78,7 @@ int		ft_intern_init(t_prompt *prompt, char **env, t_list **lst_env);
 int		ft_has_easy_syntax_error(char *line);
 int		ft_easy_error_reviews(char *line);
 int		ft_has_redir_before_pipe(char *line);
-int		ft_expand_tilde(char *line);
 int		ft_is_var_in_env(char *key, t_list **lst_env);
-int		ft_expand_var(char *line, t_list *lst_env);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);
 void	ft_cd_check_beg_bslsh(t_cd *directory);

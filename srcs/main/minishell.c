@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 07:11:38 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:48:29 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void	intern_exec(char *line, t_list *lst_env)
 	t_ast	*ast;
 	int		status;
 
-	ft_expand_var(line, lst_env);
-	ft_expand_tilde(line);
-	// removes quotes
+	line = ft_expand_var(line, lst_env);
+	line = ft_expand_tilde(line);
+	line = ft_remove_quotes(line);
 	tab = ft_split_charset(line, WHITESPACES);
+	free(line);
 	if (!tab)
 	{
 		perror("minishell: malloc failure");
@@ -36,12 +37,6 @@ static void	intern_exec(char *line, t_list *lst_env)
 	ft_clean_ast(&ast);
 }
 
-void	ft_free_prompt(t_prompt *prompt)
-{
-	free(prompt->path); 
-	free(prompt->prompt_to_display);
-}
-
 void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 {
 	char	*line;
@@ -50,6 +45,7 @@ void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 	{
 		ft_generate_prompt(lst_env, prompt);
 		line = readline(prompt->prompt_to_display); // MALLOC PROTECTION IS MISSING
+		free(prompt->prompt_to_display);
 		if (!line)
 			break ;
 		if (!*line)
@@ -64,12 +60,9 @@ void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 			continue ;
 		}
 		intern_exec(line, lst_env);
-		free(line);
-		line = NULL;
 		if (ft_get_end())
 			break ;
 	}
 	if (ft_get_end() == 0)
 		ft_putendl_fd("exit", STDOUT_FILENO);
-	ft_free_prompt(prompt);
 }
