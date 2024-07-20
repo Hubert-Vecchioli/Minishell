@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:13:59 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 16:36:06 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:11:22 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_expand_tilde(char *line)
 		return (0);
 	while (line[++i])
 	{
-		if (line[i] != '~' || (line[i + 1] && (!ft_iswhitespace(line[i + 1]) && line[i + 1] != 47)) 
+		if (line[i] != '~' || (line[i + 1] && (!ft_iswhitespace(line[i + 1]) && (line[i + 1] != '/' && line[i + 1] != 37))) 
 			|| (i > 0 && !ft_iswhitespace(line[i - 1])))
 			continue ;
 		if (ft_is_in_quote(line, i))

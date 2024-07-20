@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 01:46:32 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:01:39 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:16:25 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt)
 		free(prompt->path);
 	if (prompt->user)
 	{
-		prompt->path = ft_getcwd();
+		prompt->path = getcwd(NULL, 0);
 		if (!ft_strnstr_end(prompt->path, prompt->user
 			, ft_strlen(prompt->path)))
 			ft_gen_prpt_no_tilde(&lst_env, prompt, prompt->path);
