@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:00:04 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 07:11:38 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_free_prompt(t_prompt *prompt)
 {
 	free(prompt->path); 
 	free(prompt->prompt_to_display);
-	free(prompt);
 }
 
 void	ft_minishell(t_prompt *prompt, t_list *lst_env)

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:51:39 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 10:58:25 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:58:29 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	ft_rmv_dotdot(char *path)
 			j++;
 	}
 }
-
 
 static void	ft_rmv_dot(char *path)
 {
