@@ -37,8 +37,7 @@ EXECUTEFILES 	= exec_ast.c \
 				ft_pipe.c \
 				solve_path.c \
 				exec_redir.c
-ENDFILES 		= end_status.c \
-				ft_exit.c
+ENDFILES 		= end_status.c
 CLEANFILES 		= clean_ast.c \
 				clean_list.c \
 				save_ast_lk.c \
@@ -47,6 +46,7 @@ BUILTINFILES	= ft_cd_step1.c \
 				ft_cd_step2.c \
 				ft_cd.c \
 				ft_cd_utils1.c \
+				ft_exit.c \
 				ft_echo.c \
 				ft_env.c \
 				ft_export.c \

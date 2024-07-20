@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 04:38:20 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 05:25:58 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	intern_exec(char *line, t_list *lst_env)
 	t_ast	*ast;
 	int		status;
 
-	// expand variables
 	ft_expand_var(line, lst_env);
 	ft_expand_tilde(line);
 	// removes quotes

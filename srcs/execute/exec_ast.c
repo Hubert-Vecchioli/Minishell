@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 12:18:51 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 05:33:49 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 {
 	char	**tab;
 	int		ret;
-	int		fd_save[2];
+	int		save_fd[2];
 
-	fd_save[0] = dup(0);
-	fd_save[1] = dup(1);
+	save_fd[0] = dup(0);
+	save_fd[1] = dup(1);
 	if (ft_exec_redir(ast->right) != 0)
 		return (1);
 	tab = arg_to_tab(ast->left);
@@ -85,10 +85,10 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	else if (tab && tab[0])
 		ret = ft_exec_parent_fct(tab, lst_env);
 	unlink("/tmp/.heredoc");
-	dup2(fd_save[0], 0);
-	dup2(fd_save[1], 1);
-	close(fd_save[0]);
-	close(fd_save[1]);
+	dup2(save_fd[0], 0);
+	dup2(save_fd[1], 1);
+	close(save_fd[0]);
+	close(save_fd[1]);
 	ft_free_split(&tab);
 	return (ret);
 }
@@ -106,7 +106,7 @@ void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 	else
 	{
 		pid = fork();
-		if (pid == 0)
+		if (!pid)
 		{
 			if (ast->type == PIPE)
 				ft_pipe(ast, lst_env, status);
