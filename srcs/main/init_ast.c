@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 21:40:53 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 11:01:07 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:07:13 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_arg	*init_arg(char **av)
 {
 	t_arg	*arg;
 
-	if (!*av || is_redirect(*av) || **av == '|')
+	if (!*av || ft_is_redirection(*av) || **av == '|')
 		return (NULL);
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
@@ -30,16 +30,16 @@ static t_redir	*init_redirect(char **av)
 {
 	t_redir	*redir;
 
-	while (*av && !is_redirect(*av) && ft_strcmp(*av, "|"))
+	while (*av && !ft_is_redirection(*av) && ft_strcmp(*av, "|"))
 		av++;
-	if (!*av || !is_redirect(*av))
+	if (!*av || !ft_is_redirection(*av))
 		return (NULL);
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
 		return (perror("minishell: init_redir"), NULL);
 	*redir = (t_redir){0};
 	if (*av)
-		redir->type = is_redirect(*av++);
+		redir->type = ft_is_redirection(*av++);
 	if (*av)
 		redir->file = ft_strdup(*av++);
 	if (*av)

@@ -28,20 +28,19 @@ MAINFILES 		= main.c \
 				init_ast.c  \
 				expand_tilde.c \
 				expand_env.c
-PARSEFILES		= print_ast.c \
+UTILSFILES 		= utils_list.c \
 				utils_ast.c
-UTILSFILES 		= utils_list.c
 EXECUTEFILES 	= exec_ast.c \
 				exec_builtin.c \
 				ft_heredoc.c \
 				ft_pipe.c \
 				solve_path.c \
-				exec_redir.c
-ENDFILES 		= end_status.c
-CLEANFILES 		= clean_ast.c \
-				clean_list.c \
+				exec_redir.c \
 				save_ast_lk.c \
 				ret_status.c
+ENDFILES 		= end_status.c
+CLEANFILES 		= clean_ast.c \
+				clean_list.c
 BUILTINFILES	= ft_cd_step1.c \
 				ft_cd_step2.c \
 				ft_cd.c \
@@ -60,7 +59,6 @@ INCS = ./includes
 OBJDIRS = objs
 SRCDIRS = srcs
 PATHS	= $(addprefix main/, $(MAINFILES))\
-		$(addprefix parse/, $(PARSEFILES))\
 		$(addprefix utils/, $(UTILSFILES))\
 		$(addprefix execute/, $(EXECUTEFILES))\
 		$(addprefix end/, $(ENDFILES))\

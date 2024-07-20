@@ -6,15 +6,15 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 16:43:37 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:07:14 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	argsize(t_arg *arg)
+static int	ft_arglen(t_arg *arg)
 {
-	size_t	ret;
+	int	ret;
 
 	ret = 0;
 	while (arg)
@@ -25,33 +25,33 @@ static size_t	argsize(t_arg *arg)
 	return (ret);
 }
 
-char	**arg_to_tab(t_arg *arg)
+char	**ft_split_arg(t_arg *arg)
 {
-	char	**ret;
-	size_t	size;
-	size_t	i;
+	char	**tab;
+	int	length;
+	int	i;
 
-	size = argsize(arg);
-	ret = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!ret)
+	length = ft_arglen(arg);
+	tab = malloc(sizeof(char *) * (length + 1));
+	if (!tab)
 		return (NULL);
 	i = 0;
-	while (i < size)
+	while (i < length)
 	{
-		ret[i] = ft_strdup(arg->arg);
-		if (!ret[i])
+		tab[i] = ft_strdup(arg->arg);
+		if (!tab[i])
 		{
-			ft_free_split(&ret);
+			ft_free_split(&tab);
 			return (NULL);
 		}
 		arg = arg->next;
 		i++;
 	}
-	ret[i] = NULL;
-	return (ret);
+	tab[i] = NULL;
+	return (tab);
 }
 
-int	is_redirect(char *str)
+int	ft_is_redirection(char *str)
 {
 	if (!ft_strcmp(str, "<"))
 		return (INPUT);

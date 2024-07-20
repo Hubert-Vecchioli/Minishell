@@ -6,11 +6,11 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:02:27 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 12:08:56 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 05:57:27 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell.h" 
 
 int	ft_have_env_var_home(t_list *env)
 {

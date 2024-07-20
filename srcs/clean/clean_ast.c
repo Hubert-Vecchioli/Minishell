@@ -6,31 +6,29 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 09:23:56 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 05:57:37 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	clean_arg(t_arg **arg)
+static void	ft_free_arg(t_arg **arg)
 {
 	if (!*arg)
 		return ;
 	free((*arg)->arg);
-	clean_arg(&((*arg)->next));
+	ft_free_arg(&((*arg)->next));
 	free(*arg);
-	*arg = NULL;
 }
 
-static void	clean_redirect(t_redir **redir)
+static void	ft_free_redirect(t_redir **redir)
 {
 	if (!*redir)
 		return ;
 	free((*redir)->file);
 	(*redir)->file = NULL;
-	clean_redirect(&((*redir)->next));
+	ft_free_redirect(&((*redir)->next));
 	free(*redir);
-	*redir = NULL;
 }
 
 void	ft_clean_ast(t_ast **ast)
@@ -44,9 +42,8 @@ void	ft_clean_ast(t_ast **ast)
 	}
 	else
 	{
-		clean_arg((t_arg **)&((*ast)->left));
-		clean_redirect((t_redir **)&((*ast)->right));
+		ft_free_arg((t_arg **)&((*ast)->left));
+		ft_free_redirect((t_redir **)&((*ast)->right));
 	}
 	free(*ast);
-	*ast = NULL;
 }

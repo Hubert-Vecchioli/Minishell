@@ -6,32 +6,15 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:28:42 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/18 17:01:05 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:20:23 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_spath(char ***spath)
+static int	ft_count_path(char *path)
 {
-	int	i;
-
-	i = 0;
-	if (!*spath)
-		return ;
-	while ((*spath)[i])
-	{
-		free((*spath)[i]);
-		(*spath)[i] = NULL;
-		i++;
-	}
-	free(*spath);
-	*spath = NULL;
-}
-
-static size_t	nb_spath(char *path)
-{
-	size_t	nb;
+	int	nb;
 
 	nb = 0;
 	if (!path)
@@ -47,10 +30,10 @@ static size_t	nb_spath(char *path)
 	return (nb);
 }
 
-static char	*subpath(char *path, size_t *j)
+static char	*ft_get_subpath(char *path, int *j)
 {
 	char	*ret;
-	size_t	i;
+	int	i;
 
 	ret = NULL;
 	i = 0;
@@ -66,14 +49,14 @@ static char	*subpath(char *path, size_t *j)
 	return (ret);
 }
 
-static char	**split_path(char *path)
+static char	**ft_split_path(char *path)
 {
 	char	**spath;
-	size_t	nbpath;
-	size_t	i;
-	size_t	j;
+	int	nbpath;
+	int	i;
+	int	j;
 
-	nbpath = nb_spath(path);
+	nbpath = ft_count_path(path);
 	spath = malloc(sizeof(char *) * (nbpath + 1));
 	i = 0;
 	j = 0;
@@ -81,26 +64,26 @@ static char	**split_path(char *path)
 		return (NULL);
 	while (i < nbpath)
 	{
-		spath[i] = subpath(path, &j);
+		spath[i] = ft_get_subpath(path, &j);
 		if (!spath[i])
 		{
-			free_spath(&spath);
+			ft_free_split(&spath);
 			return (NULL);
 		}
 		i++;
 	}
-	spath[i] = NULL;
+	spath[i] = 0;
 	return (spath);
 }
 
-char	*solve_path(char *path, char *key)
+char	*ft_find_path(char *path, char *key)
 {
 	char		**spath;
 	char		*tpath;
 	struct stat	buf;
 	int			i;
 
-	spath = split_path(path);
+	spath = ft_split_path(path);
 	tpath = NULL;
 	i = 0;
 	if (!spath)
@@ -110,12 +93,12 @@ char	*solve_path(char *path, char *key)
 		tpath = ft_strjoin(spath[i], key);
 		if (!tpath || stat(tpath, &buf) == 0)
 		{
-			free_spath(&spath);
+			ft_free_split(&spath);
 			return (tpath);
 		}
 		free(tpath);
 		i++;
 	}
-	free_spath(&spath);
+	ft_free_split(&spath);
 	return (ft_strdup(key));
 }

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 05:25:58 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:00:04 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	intern_exec(char *line, t_list *lst_env)
 	ast = ft_init_ast(ft_tablen(tab), tab);
 	ft_save_ast_link(&ast);
 	ft_free_split(&tab);
-	//print_ast(ast, 0); FOR DEBUG !
 	ft_execute_ast(ast, &lst_env, &status);
 	ft_set_status(status);
 	ft_clean_ast(&ast);

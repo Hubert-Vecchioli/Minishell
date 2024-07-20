@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:44:13 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/18 19:59:40 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:03:02 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_list	*ft_init_env(char **env)
 	return (list_env);
 }
 
-int	intern_init(t_prompt *prompt, char **env, t_list **lst_env)
+int	ft_intern_init(t_prompt *prompt, char **env, t_list **lst_env)
 {
 	signal(SIGINT, ft_clean_prompt);
 	signal(SIGQUIT, SIG_IGN);

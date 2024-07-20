@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 05:33:49 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:21:00 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ static char	*sub_solve_path(char **tab, t_list **lst_env)
 	char	*path_value;
 
 	path_value = ft_getenv("PATH=", *lst_env);
-	cpath = solve_path(path_value, tab[0]);
+	cpath = ft_find_path(path_value, tab[0]);
+	printf("path: %s & tab: %s", cpath, tab[0]);
 	free(path_value);
 	if (!cpath)
-		perror("minishell: solve_path");
+		perror("minishell: error to find path");
 	return (cpath);
 }
 
@@ -47,7 +48,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 	int		status;
 	pid_t	pid;
 
-	cpath = sub_solve_path(tab, lst_env);
+	cpath = sub_ft_find_path(tab, lst_env);
 	if (!cpath)
 		return (-1);
 	ret = 0;
@@ -76,7 +77,7 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	save_fd[1] = dup(1);
 	if (ft_exec_redir(ast->right) != 0)
 		return (1);
-	tab = arg_to_tab(ast->left);
+	tab = ft_split_arg(ast->left);
 	if (!tab)
 		perror("minishell: exec_arg");
 	ret = 0;
