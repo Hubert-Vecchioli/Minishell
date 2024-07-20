@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 10:18:28 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 22:55:13 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static int	ft_has_easy_errors(char *line)
 	while (line[i] && line[i + 1] && line[i + 2])
 	{
 		if ((line[i] == '>' && line[i + 1] == '>' && line[i + 2] == '>') )
-			return (perror("minishell: syntax error near unexpected char: '>'\n"), 1);
+			return (perror("minishell: syntax error near unexpected char: '>>'\n"), 1);
 		if ((line[i] == '<' && line[i + 1] == '<' && line[i + 2] == '<') )
-			return (perror("minishell: syntax error near unexpected char: '<'\n"), 1);
+			return (perror("minishell: syntax error near unexpected char: '<<'\n"), 1);
 		i++;
 	}
 	if (((line[0] == 34 && line[1] == 34) || (line[0] == 39
