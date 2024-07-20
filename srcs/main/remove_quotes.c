@@ -6,45 +6,29 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:13:08 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 09:41:18 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:29:25 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_rm_quotes_tables_and_lowercase_builtin(t_master_shell *md, t_cmd_tbl *tables)
+int ft_remove_quotes(char *line)
 {
-	char *tmp;
+	int		i;
 
-	while (tables != NULL)
+	i = -1;
+	if (!line)
+		return (0);
+	while (line[++i])
 	{
-		if (tables->cmd != NULL)
-		{
-			tmp = ft_dup_without_top_quote(md, tables->cmd);
-			free(tables->cmd);
-			tables->cmd = tmp;
-			ft_get_builtin_lowercase(tables);
-		}
-		tables = tables->next;
+		// delete actual quotes (not the ones within ones)
+		// realloc the char+
+		// lowercase_builtin within quotes
 	}
+	return (1);
 }
 
-char *ft_dup_without_top_quote(t_master_shell *md, char *str)
-{
-	char *result;
-	int i;
-
-	if (str[0] == 34 || str[0] == 39)
-	{
-		result = ft_substr(str, 1, ft_strlen(str) - 1);
-		if (!result)
-			return (ft_free_cmd_tab(str), ft_free(md)); // ?? free tab
-		return (result);
-	}
-	return (ft_strdup(str));
-}
-
-void	ft_get_builtin_lower(t_cmd_tbl *table)
+void	ft_lowercase_builtin(t_cmd_tbl *table)
 {
 	char	*result;
 	int	i;
