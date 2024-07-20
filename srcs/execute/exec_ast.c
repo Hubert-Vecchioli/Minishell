@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:21:00 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:33:29 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 	int		status;
 	pid_t	pid;
 
-	cpath = sub_ft_find_path(tab, lst_env);
+	cpath = sub_solve_path(tab, lst_env);
 	if (!cpath)
 		return (-1);
 	ret = 0;
