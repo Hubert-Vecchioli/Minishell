@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 23:59:43 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:16:21 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	ft_has_only_tilde(char *line)
 	if (line[0] == '~' && ft_strlen(line) == 1)
 	{	
 		home_path = getenv("HOME");
+		ft_set_status(126);
 		if (!home_path)
 			return (ft_putendl_fd("minishell: ~: is a directory", 2), 1);
 		else
@@ -39,14 +40,14 @@ static int	ft_has_easy_errors(char *line)
 	while (line[i] && line[i + 1] && line[i + 2])
 	{
 		if ((line[i] == '>' && line[i + 1] == '>' && line[i + 2] == '>') )
-			return (ft_putendl_fd("minishell: syntax error near unexpected char: '>>'", 2), 1);
+			return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: '>>'", 2), 1);
 		if ((line[i] == '<' && line[i + 1] == '<' && line[i + 2] == '<') )
-			return (ft_putendl_fd("minishell: syntax error near unexpected char: '<<'", 2), 1);
+			return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: '<<'", 2), 1);
 		i++;
 	}
 	if (((line[0] == 34 && line[1] == 34) || (line[0] == 39
 		&& line[1] == 39)) && ft_strlen(line) == 2)
-		return (ft_putendl_fd("minishell: command not found", 2), 1);
+		return (ft_set_status(127), ft_putendl_fd("minishell: command not found", 2), 1);
 	return (0);
 }
 
@@ -54,14 +55,14 @@ static int	ft_has_easy_errors(char *line)
 static int	ft_has_easy_pipe_errors(char *line)
 {
 	if (line[0] == '|' && line[1] == '|')
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: '||'", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: '||'", 2), 1);
 	if (line[0] == '&' && line[1] == '&')
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: '&&'", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: '&&'", 2), 1);
 	else if (line[0] == '|')
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: '|'", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: '|'", 2), 1);
 	else if ((line[ft_strlen(line) - 1] == '|' || line[ft_strlen(line) - 1] == '>'
 		|| line[ft_strlen(line) - 1] == '<') || (line[0] == '!' && ft_strlen(line) == 1))
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: 'newline'", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: 'newline'", 2), 1);
 	return (0);
 }
 
@@ -88,9 +89,9 @@ static int	ft_has_easy_quotes_errors(char *line)
 		}
 	}
 	if (in_quotes != 0 && q_type == 34)
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: \"", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: \"", 2), 1);
 	if (in_quotes != 0 && q_type == 39)
-		return (ft_putendl_fd("minishell: syntax error near unexpected char: \'", 2), 1);
+		return (ft_set_status(258), ft_putendl_fd("minishell: syntax error near unexpected char: \'", 2), 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 05:57:37 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:10:05 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	ft_free_redirect(t_redir **redir)
 	if (!*redir)
 		return ;
 	free((*redir)->file);
-	(*redir)->file = NULL;
 	ft_free_redirect(&((*redir)->next));
 	free(*redir);
 }
