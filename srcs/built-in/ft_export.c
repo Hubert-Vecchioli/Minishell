@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:01:16 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:55:06 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static char	ft_has_special_char(char *str, int n)
 	i = 0;
 	if (str[0] == '*' || str[0] == '$' || str[0] == '?' || str[0] == '='
 		|| str[0] == '#' || str[0] == '-' || str[0] == '!' || str[0] == '@'
-		|| ft_isdigit(str[0]))
+		|| str[0] == '+' || ft_isdigit(str[0]))
 		return (str[0]);
 	while (str[i] && i < n)
 	{
-		if (str[i] == '*' || str[i] == '$' || str[i] == '?'
+		if (str[i] == '*' || str[i] == '$' || str[i] == '?' || str[i] == '+'
 			|| str[i] == '#' || str[i] == '-' || str[i] == '!' || str[i] == '@')
 			return (str[i]);
 		i++;
