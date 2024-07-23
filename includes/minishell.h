@@ -6,7 +6,7 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:17:32 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:50:07 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		ft_easy_error_reviews(char *line);
 int		ft_has_redir_before_pipe(char *line);
 int		ft_is_var_in_env(char *key, t_list **lst_env);
 int		ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
+int		ft_is_in_squote(char *line, int i);
+int		ft_is_in_quote(char *line, int i);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);
 void	ft_cd_check_beg_bslsh(t_cd *directory);

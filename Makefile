@@ -32,7 +32,8 @@ MAINFILES 		= main.c \
 				remove_quotes.c \
 				ft_split_charset_with_quotes.c
 UTILSFILES 		= utils_list.c \
-				utils_ast.c
+				utils_ast.c \
+				utils_quote.c
 EXECUTEFILES 	= exec_ast.c \
 				exec_builtin.c \
 				ft_heredoc.c \

@@ -6,38 +6,11 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:13:59 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:52:07 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:53:24 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_is_in_quote(char *line, int i)
-{
-	int		in_quotes;
-	char	q_type;
-	int		j;
-
-	in_quotes = 0;
-	q_type = 0;
-	j = -1;
-	while (line[++j] && j < i)
-	{
-		if ((line[j] == 34 || line[j] == 39))
-		{
-			if (in_quotes && q_type == line[j])
-				in_quotes = 0;
-			else if (!in_quotes)
-			{
-				q_type = line[j];
-				in_quotes = 1;
-			}
-		}
-	}
-	if (in_quotes)
-		return (1);
-	return (0);
-}
 
 static char	*ft_expand_cmd_tilde(char *line, int i)
 {

@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset_with_quotes.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:04:35 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:13:09 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:52:46 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_is_in_squote(char *line, int i)
-{
-	int		in_quotes;
-	char	q_type;
-	int		j;
-
-	in_quotes = 0;
-	q_type = 0;
-	j = -1;
-	while (line[++j] && j <= i)
-	{
-		if ((line[j] == '\"' || line[j] == '\''))
-		{
-			if (in_quotes && q_type == line[j])
-				in_quotes = 0;
-			else if (!in_quotes)
-			{
-				q_type = line[j];
-				in_quotes = 1;
-			}
-		}
-	}
-	if (in_quotes)
-		return (1);
-	return (0);
-}
 
 static int	check_sep(char *src, char *charset, int pos)
 {
@@ -67,7 +40,7 @@ static int	ft_ct_wd_w_qte(char *src, char *charset)
 		if (src[i])
 			count++;
 		while (src[i] && (!check_sep(src, charset, i)
-				|| ft_is_in_squote(src, i)))
+				|| ft_is_in_quote(src, i)))
 			i++;
 	}
 	return (count);
@@ -79,7 +52,7 @@ static int	ft_ct_wd_l_w_qte(char *src, char *charset, int pos)
 
 	count = 0;
 	while (src[pos] && (!check_sep(src, charset, pos)
-			|| ft_is_in_squote(src, pos)))
+			|| ft_is_in_quote(src, pos)))
 	{
 		pos++;
 		count++;
