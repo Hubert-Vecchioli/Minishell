@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:59:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/21 00:03:08 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:56:03 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@
 
 static int	ft_has_n_flag( char *arg)
 {
-	if (arg && arg[0] == '-' && arg[1] == 'n' && !arg[2])
-		return (1);
+	int	i;
+
+	i = 1;
+	if (arg && arg[0] == '-')
+	{
+		while (arg[i] == 'n')
+			i++;
+		if (arg[i] == '\0')
+			return (1);
+	}
 	return (0);
 }
 
