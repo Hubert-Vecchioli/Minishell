@@ -22,6 +22,7 @@ MAINFILES 		= main.c \
 				init.c \
 				env_var.c \
 				generate_prompt.c \
+				expand_exit_status.c \
 				ft_clean_prompt.c \
 				easy_errors.c \
 				easy_errors_utils.c \

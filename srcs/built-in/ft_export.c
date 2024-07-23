@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 23:35:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:05:12 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 // attention aux doublon
 
-static char	ft_has_special_char(char *str)
+static char	ft_has_special_char(char *str, int n)
 {
 	int	i;
 
 	i = 0;
-	if (str[0] == '*' || str[0] == '$' || str[0] == '?'
+	if (str[0] == '*' || str[0] == '$' || str[0] == '?' || str[0] == '='
 		|| str[0] == '#' || str[0] == '-' || str[0] == '!' || str[0] == '@'
 		|| ft_isdigit(str[0]))
 		return (str[0]);
-	while (str[i])
+	while (str[i] && i < n)
 	{
 		if (str[i] == '*' || str[i] == '$' || str[i] == '?'
 		|| str[i] == '#' || str[i] == '-' || str[i] == '!' || str[i] == '@')
@@ -66,14 +66,11 @@ static int	ft_strchr_count(const char *str, char to_find)
 int	ft_export(int ac, char **av, t_list **env)
 {
 	char *tmp;
+	
 	(void) ac;
 	av++;
 	if (!*av)
-	{
-		ft_env(*env);
-		return (0);
-	}
-	
+		return (ft_env(0, NULL, *env), 0);
 	while (*av)
 	{
 		if (ft_strchr_count(*av, '='))
@@ -81,10 +78,10 @@ int	ft_export(int ac, char **av, t_list **env)
 				tmp = ft_substr(*av, 0, ft_strchr_count(*av, '='));
 				ft_is_var_in_env(tmp, env);
 				free(tmp);
-			if (ft_has_special_char(*av))
+			if (ft_has_special_char(*av, ft_strchr_count(*av, '=')))
 			{
 				ft_putstr_fd("minishell: export: `", 2);
-				ft_putchar_fd(ft_has_special_char(*av), 2);
+				ft_putchar_fd(ft_has_special_char(*av, ft_strchr_count(*av, '=')), 2);
 				ft_putendl_fd("': not a valid identifier", 2);
 			}
 			else if (dup_to_list(av, env))

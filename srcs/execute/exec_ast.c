@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/22 11:45:30 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 08:38:35 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 static void	ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
 {
-	char	**env;
-	int		ret;
+	char		**env;
+	int			ret;
+	struct stat path_stat;
+	char		*error_msg;
 
+	stat(cpath, &path_stat);
+	if (((path_stat.st_mode) & S_IFMT) == S_IFDIR)
+		{
+			error_msg = ft_three_strjoin("minishell: ", tab[0], ": is a directory");
+			ft_putendl_fd(error_msg, 2);
+			free(error_msg);
+			free(cpath);
+			ft_clean_env_and_history(lst_env);
+			exit(126);
+		}
 	env = ft_convert_lst_to_tab(*lst_env);
 	ret = execve(cpath, tab, env);
 	if (ret == -1)
@@ -56,15 +68,16 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 	{
 		pid = fork();
 		if (pid == 0)
-			ft_exec_child_fct(tab, lst_env, cpath);
+			ft_exec_child_fct(tab, lst_env, cpath);	
 		else
 			waitpid(pid, &status, 0);
 	}
 	else
 	{
 		error_msg = ft_three_strjoin("minishell: ", tab[0], ": command not found");
-		ft_putendl_fd(error_msg,1);
-		free(error_msg); //perror(tab[0]);	
+		ft_putendl_fd(error_msg, 2);
+		free(error_msg);
+		ret = 127;
 	}	
 	return (ft_clean_saved_ast_link(), free(cpath), ret);
 }
@@ -105,14 +118,16 @@ void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 		return ;
 	test = ast->left;
 	if (ast->type == COMMAND && test && test->arg && ft_is_builtin_fct(test->arg))
+	{
 		*status = ft_execute_arg(ast, lst_env);
+	}
 	else
 	{
 		pid = fork();
-		if (!pid)
+		if (pid == 0)
 		{
 			if (ast->type == PIPE)
-				ft_pipe(ast, lst_env, status);		
+				ft_pipe(ast, lst_env, status);
 			else if (ast->type == COMMAND)
 				*status = ft_execute_arg(ast, lst_env);
 			ft_clean_env_and_history(lst_env);

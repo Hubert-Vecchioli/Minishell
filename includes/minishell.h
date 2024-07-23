@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 21:23:14 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:47:23 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_find_path(char *path, char *key);
 char	*ft_three_strjoin(char *str1, char *str2, char *str3);
 char	*ft_getenv_value(char *key, t_list *lst_env);
 char	*ft_expand_tilde(char *line);
+char	*ft_expand_exit_status(char *line);
 char	*ft_expand_var(char *line, t_list *lst_env);
 char	*ft_remove_quotes(char *line);
 char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt);
@@ -60,7 +61,7 @@ char	**ft_convert_lst_to_tab(t_list *lst_env);
 char	**ft_split_arg(t_arg *arg);
 int		ft_pwd(int ac, char **av);
 int		ft_exit(int ac, char **av, int status, t_list **env);
-int		ft_env(t_list *env);
+int		ft_env(int ac, char **av, t_list *env);
 int		ft_export(int ac, char **av, t_list **env);
 int		ft_unset(int ac, char **av, t_list **env);
 int		ft_cd(int ac, char **av, t_list **env);

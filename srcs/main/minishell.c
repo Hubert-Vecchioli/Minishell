@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 23:51:17 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:13:28 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	intern_exec(char *line, t_list *lst_env)
 
 	line = ft_expand_var(line, lst_env);
 	line = ft_expand_tilde(line);
+	line = ft_expand_exit_status(line);
 	line = ft_remove_quotes(line);
 	tab = ft_split_charset(line, WHITESPACES);
 	free(line);
