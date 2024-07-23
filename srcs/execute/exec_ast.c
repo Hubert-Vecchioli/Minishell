@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 11:30:31 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:48:19 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,9 @@ void ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
 			waitpid(pid, status, 0);
+			signal(SIGINT, ft_clean_prompt);
 			*status = WEXITSTATUS(*status);
 		}
 	}
