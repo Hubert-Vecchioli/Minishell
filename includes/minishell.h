@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/22 23:47:23 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:15:46 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_cd_check_len(t_cd *directory);
 void	ft_cd_setenv(t_cd *directory);
 void	ft_clean_saved_ast_link(void);
 void	ft_save_ast_link(t_ast **ast);
-void	ft_clean_env_and_history(t_list **lst_env);
+void	ft_clean_env(t_list **lst_env);
 void	ft_clean_ast(t_ast **ast);
 void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
 void	ft_clean_prompt(int sig);

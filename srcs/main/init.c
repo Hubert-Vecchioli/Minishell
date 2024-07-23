@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:44:13 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:03:02 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:16:15 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_list	*ft_init_env(char **env)
 		{
 			free(new_content);
 			free(new_node);
-			ft_clean_env_and_history(&list_env);
+			ft_clean_env(&list_env);
 			return (NULL);
 		}
 		ft_lstadd_back(&list_env, new_node);

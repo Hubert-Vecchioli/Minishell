@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:09:56 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/19 12:21:46 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:16:01 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_pipe(t_ast *ast, t_list **lst_env, int *status)
 			ft_in_child(&in_pipe);
 		else
 			ft_in_parent(&in_pipe);
-		ft_clean_env_and_history(in_pipe.lst_env);
+		ft_clean_env(in_pipe.lst_env);
 		ft_clean_saved_ast_link();
 	}
 	else

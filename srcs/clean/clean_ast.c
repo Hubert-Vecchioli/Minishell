@@ -6,34 +6,37 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/22 11:10:05 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:11:46 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_free_arg(t_arg **arg)
+static void ft_free_arg(t_arg **arg)
 {
 	if (!*arg)
-		return ;
-	free((*arg)->arg);
-	ft_free_arg(&((*arg)->next));
-	free(*arg);
+		return;
+	if ((*arg)->arg)
+		free((*arg)->arg);
+	if (&((*arg)->next))
+		ft_free_arg(&((*arg)->next));
+	if (*arg)
+		free(*arg);
 }
 
-static void	ft_free_redirect(t_redir **redir)
+static void ft_free_redirect(t_redir **redir)
 {
 	if (!*redir)
-		return ;
+		return;
 	free((*redir)->file);
 	ft_free_redirect(&((*redir)->next));
 	free(*redir);
 }
 
-void	ft_clean_ast(t_ast **ast)
+void ft_clean_ast(t_ast **ast)
 {
 	if (!*ast)
-		return ;
+		return;
 	if ((*ast)->type == PIPE)
 	{
 		ft_clean_ast((t_ast **)&((*ast)->left));
