@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:07:14 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:16:10 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	ft_arglen(t_arg *arg)
 char	**ft_split_arg(t_arg *arg)
 {
 	char	**tab;
-	int	length;
-	int	i;
+	int		length;
+	int		i;
 
 	length = ft_arglen(arg);
 	tab = malloc(sizeof(char *) * (length + 1));

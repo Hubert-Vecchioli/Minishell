@@ -6,7 +6,7 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:13:08 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:01:52 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:29:40 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,10 @@ static char	*ft_remove_char(char *line, int i)
 	return (line);
 }
 
-static char	*ft_search_quotes_to_remove(char *line)
+static char	*ft_search_quotes_to_remove(char *line, int i,
+int in_quotes, char q_type)
 {
-	int		in_quotes;
-	char	q_type;
-	int		i;
-
-	in_quotes = 0;
-	q_type = 0;
-	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if ((line[i] != 34 && line[i] != 39))
 		{
@@ -49,14 +43,14 @@ static char	*ft_search_quotes_to_remove(char *line)
 		if (in_quotes && q_type == line[i])
 		{
 			in_quotes = 0;
-			line = ft_remove_char(line, i);// MALLOC PROTEC MISSING
+			line = ft_remove_char(line, i);
 			continue ;
 		}
 		else if (!in_quotes)
 		{
 			q_type = line[i];
 			in_quotes = 1;
-			line = ft_remove_char(line, i); // MALLOC PROTEC MISSING
+			line = ft_remove_char(line, i);
 			continue ;
 		}
 		i++;
@@ -68,6 +62,6 @@ char	*ft_remove_quotes(char *line)
 {
 	if (!line)
 		return (NULL);
-	line = ft_search_quotes_to_remove(line);
+	line = ft_search_quotes_to_remove(line, 0, 0, 0);
 	return (line);
 }

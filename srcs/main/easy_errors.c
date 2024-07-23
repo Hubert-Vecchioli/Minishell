@@ -6,7 +6,7 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:24:40 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:30:08 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ command not found", 2), 1);
 	return (0);
 }
 
-
 static int	ft_has_easy_pipe_errors(char *line)
 {
 	if (line[0] == '|' && line[1] == '|')
@@ -55,15 +54,9 @@ syntax error near unexpected token: 'newline'", 2), 1);
 	return (0);
 }
 
-static int	ft_has_easy_quotes_errors(char *line)
+static int	ft_has_easy_quotes_errors(char *line, int i,
+char q_type, int in_quotes)
 {
-	char	q_type;
-	int		i;
-	int		in_quotes;
-
-	i = -1;
-	q_type = 0;
-	in_quotes = 0;
 	while (line[++i])
 	{
 		if ((line[i] == 34 || line[i] == 39))
@@ -78,9 +71,11 @@ static int	ft_has_easy_quotes_errors(char *line)
 		}
 	}
 	if (in_quotes != 0 && q_type == 34)
-		return (ft_set_status(2), ft_putendl_fd("minishell: syntax error near unexpected token: \"", 2), 1);
+		return (ft_set_status(2), ft_putendl_fd("minishell: syntax error near \
+unexpected token: \"", 2), 1);
 	if (in_quotes != 0 && q_type == 39)
-		return (ft_set_status(2), ft_putendl_fd("minishell: syntax error near unexpected token: \'", 2), 1);
+		return (ft_set_status(2), ft_putendl_fd("minishell: syntax error near \
+unexpected token: \'", 2), 1);
 	return (0);
 }
 
@@ -89,9 +84,8 @@ int	ft_easy_error_reviews(char *line)
 	if (!ft_strlen(line))
 		return (0);
 	if (ft_has_easy_errors(line))
-		return (0);	
-
-	if (ft_has_easy_quotes_errors(line))
+		return (0);
+	if (ft_has_easy_quotes_errors(line, -1, 0, 0))
 		return (0);
 	if (ft_has_redir_before_pipe(line))
 		return (0);

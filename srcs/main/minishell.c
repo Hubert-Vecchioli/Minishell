@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 14:45:36 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:22:32 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static void	intern_exec(char *line, t_list *lst_env)
 	line = ft_expand_var(line, lst_env);
 	line = ft_expand_tilde(line);
 	line = ft_expand_exit_status(line);
-	line = ft_remove_quotes(line);
 	tab = ft_split_charset(line, WHITESPACES);
-	// if in quote, no split
-	// then run remove auotes on each split part
 	free(line);
 	if (!tab)
 	{
@@ -47,7 +44,7 @@ void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 	while (1)
 	{
 		ft_generate_prompt(lst_env, prompt);
-		line = readline(prompt->prompt_to_display); // MALLOC PROTECTION IS MISSING
+		line = readline(prompt->prompt_to_display);
 		free(prompt->prompt_to_display);
 		if (!line)
 			break ;
@@ -66,6 +63,4 @@ void	ft_minishell(t_prompt *prompt, t_list *lst_env)
 		if (ft_get_end())
 			break ;
 	}
-	if (ft_get_end() == 0)
-		ft_putendl_fd("exit", STDOUT_FILENO);
 }

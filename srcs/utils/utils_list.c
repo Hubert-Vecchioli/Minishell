@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:43:08 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:21:50 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:20:33 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ char	**ft_convert_lst_to_tab(t_list *lst_env)
 	while (size_env > i)
 	{
 		env[i] = ft_strdup((char *)lst_env->content);
-		// MALLOC PROTECTION IS MISSING
+		if (!env[i])
+		{
+			ft_free_split(&env);
+			return (NULL);
+		}
 		i++;
 		lst_env = lst_env->next;
 	}
@@ -38,7 +42,6 @@ char	*ft_getenv(char *key, t_list *lst_env)
 	{
 		if (!ft_strncmp(key, lst_env->content, ft_strlen(key)))
 			return (ft_strdup((char *)lst_env->content + ft_strlen(key)));
-			//MALLOC PROTECTION IS MISSING
 		lst_env = lst_env->next;
 	}
 	return (NULL);

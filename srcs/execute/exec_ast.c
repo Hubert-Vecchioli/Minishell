@@ -6,7 +6,7 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:57:40 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:14:26 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 		pid = fork();
 		if (pid == 0)
 			ft_exec_child_fct(tab, lst_env, cpath);
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
+		signal(SIGINT, ft_clean_prompt);
+		return (free(cpath), status);
 	}
-	else
-	{
-		error_msg = ft_three_strjoin("minishell: ", tab[0],
-				": command not found");
-		ft_putendl_fd(error_msg, 2);
-		free(error_msg);
-		status = 127;
-	}
+	error_msg = ft_three_strjoin("minishell: ", tab[0],
+			": command not found");
+	ft_putendl_fd(error_msg, 2);
+	free(error_msg);
+	status = 127;
 	return (free(cpath), status);
 }
 

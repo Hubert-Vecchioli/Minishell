@@ -29,7 +29,8 @@ MAINFILES 		= main.c \
 				init_ast.c  \
 				expand_tilde.c \
 				expand_env.c \
-				remove_quotes.c
+				remove_quotes.c \
+				ft_split_charset_with_quotes.c
 UTILSFILES 		= utils_list.c \
 				utils_ast.c
 EXECUTEFILES 	= exec_ast.c \
