@@ -1,8 +1,0 @@
-var="file 2"
-echo bl > $var
-bash: $var: ambiguous redirect
-
-
-var="echo hey"
-$var
-hey

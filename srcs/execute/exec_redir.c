@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 04:40:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 14:45:26 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:38:41 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	ft_redir_heredoc(char *file)
 		return (0);
 	}
 	signal(SIGINT, ft_handle_sigint_heredoc);
+	ft_set_status(0);
 	ft_heredoc(fd, file);
 	signal(SIGINT, ft_clean_prompt);
 	close(fd);
@@ -49,6 +50,8 @@ static int	ft_redir_heredoc(char *file)
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	if (ft_get_status() == 130)
+		return (2);
 	return (1);
 }
 
@@ -96,7 +99,11 @@ int	ft_exec_redir(t_redir *redir)
 		else if (redir->type == APPEND)
 			i = ft_redir_append(redir->file);
 		else if (redir->type == HEREDOC)
+		{
 			i = ft_redir_heredoc(redir->file);
+			if (i == 2)
+				return (130);
+		}
 		if (i == 0)
 			return (-1);
 		redir = redir->next;

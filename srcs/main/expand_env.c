@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:10:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:51:25 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:11:41 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ char	*ft_expand_var(char *line, t_list *lst_env)
 		return (NULL);
 	while (line[++i])
 	{
-		if (line[i] != '$' || !line[i + 1] || (line[i] == '$'
-				&& !ft_isalnum(line[i + 1])))
+		if ((line[i] != '$' || !line[i + 1] || (line[i] == '$'
+					&& !ft_isalnum(line[i + 1]))) && (line[i] != '$'
+				|| ft_is_in_quote(line, i)
+				|| (line[i + 1] != '\"' && line[i + 1] != '\'')))
 			continue ;
 		if (ft_is_in_squote(line, i))
 			continue ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:14:26 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:55:53 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,17 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 		pid = fork();
 		if (pid == 0)
 			ft_exec_child_fct(tab, lst_env, cpath);
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, ft_clean_prompt2);
 		waitpid(pid, &status, 0);
 		signal(SIGINT, ft_clean_prompt);
+		if (ft_get_wip() == 0 && ft_get_status() == 130)
+			return (free(cpath), 130);
 		return (free(cpath), status);
 	}
 	error_msg = ft_three_strjoin("minishell: ", tab[0],
 			": command not found");
 	ft_putendl_fd(error_msg, 2);
-	free(error_msg);
-	status = 127;
-	return (free(cpath), status);
+	return (free(error_msg), free(cpath), 127);
 }
 
 int	ft_execute_arg(t_ast *ast, t_list **lst_env)
@@ -86,11 +86,15 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	char	**tab;
 	int		ret;
 	int		save_fd[2];
+	int		redir_value;
 
+	redir_value = ft_exec_redir(ast->right);
+	if (redir_value == -1)
+		return (1);
+	else if (redir_value == 130)
+		return (unlink("/tmp/.heredoc"), 130);
 	save_fd[0] = dup(0);
 	save_fd[1] = dup(1);
-	if (ft_exec_redir(ast->right) != 0)
-		return (1);
 	tab = ft_split_arg(ast->left);
 	if (!tab)
 		perror("minishell: exec_arg");
@@ -103,9 +107,7 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	dup2(save_fd[0], 0);
 	dup2(save_fd[1], 1);
 	close(save_fd[0]);
-	close(save_fd[1]);
-	ft_free_split(&tab);
-	return (ret);
+	return (close(save_fd[1]), ft_free_split(&tab), ret);
 }
 
 int	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)

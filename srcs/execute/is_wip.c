@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_prompt.c                                  :+:      :+:    :+:   */
+/*   is_wip.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 16:59:16 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 18:40:13 by hvecchio         ###   ########.fr       */
+/*   Created: 2024/07/23 18:47:08 by hvecchio          #+#    #+#             */
+/*   Updated: 2024/07/23 18:54:40 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_clean_prompt(int sig)
+static int	ft_status_wip(int mode, int status)
 {
-	(void)sig;
-	write(1, "\n", STDOUT_FILENO);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	ft_set_status(130);
+	static int	last_status_wip = 0;
+
+	if (mode == 1)
+		last_status_wip = status;
+	return (last_status_wip);
 }
 
-void	ft_handle_sigint_heredoc(int sig)
+int	ft_get_wip(void)
 {
-	(void)sig;
-	write(1, "\n", STDOUT_FILENO);
-	close(STDIN_FILENO);
-	ft_set_status(130);
+	return (ft_status_wip(0, 0));
 }
 
-void	ft_clean_prompt2(int sig)
+void	ft_set_wip(int status)
 {
-	(void)sig;
-	write(1, "\n", STDOUT_FILENO);
-	ft_set_status(130);
+	ft_status_wip(1, status);
+	return ;
 }

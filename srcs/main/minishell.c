@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:22:32 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:48:38 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	intern_exec(char *line, t_list *lst_env)
 	line = ft_expand_var(line, lst_env);
 	line = ft_expand_tilde(line);
 	line = ft_expand_exit_status(line);
-	tab = ft_split_charset(line, WHITESPACES);
+	tab = ft_split_charset_with_quote(line, WHITESPACES);
 	free(line);
 	if (!tab)
 	{
@@ -34,6 +34,7 @@ static void	intern_exec(char *line, t_list *lst_env)
 	ft_free_split(&tab);
 	ft_execute_ast(ast, &lst_env, &status);
 	ft_set_status(status);
+	ft_set_wip(1);
 	ft_clean_ast(&ast);
 }
 

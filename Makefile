@@ -41,7 +41,8 @@ EXECUTEFILES 	= exec_ast.c \
 				solve_path.c \
 				exec_redir.c \
 				save_ast_lk.c \
-				ret_status.c
+				ret_status.c \
+				is_wip.c
 ENDFILES 		= end_status.c
 CLEANFILES 		= clean_ast.c \
 				clean_list.c

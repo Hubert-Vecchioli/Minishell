@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:50:07 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:50:17 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ft_remove_quotes(char *line);
 char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt);
 char	**ft_convert_lst_to_tab(t_list *lst_env);
 char	**ft_split_arg(t_arg *arg);
+char	**ft_split_charset_with_quote(char *s, char *chset);
 int		ft_pwd(int ac, char **av);
 int		ft_exit(int ac, char **av, int status, t_list **env);
 int		ft_env(int ac, char **av, t_list *env);
@@ -83,6 +84,8 @@ int		ft_is_var_in_env(char *key, t_list **lst_env);
 int		ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
 int		ft_is_in_squote(char *line, int i);
 int		ft_is_in_quote(char *line, int i);
+int		ft_get_wip(void);
+void	ft_set_wip(int status);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);
 void	ft_cd_check_beg_bslsh(t_cd *directory);
@@ -105,5 +108,6 @@ void	ft_set_status(int status);
 void	ft_setenv(char *key, char *value, t_list **lst_env);
 void	ft_set_end(int status);
 void	ft_minishell(t_prompt *prompt, t_list *lst_env);
+void	ft_clean_prompt2(int sig);
 
 #endif
