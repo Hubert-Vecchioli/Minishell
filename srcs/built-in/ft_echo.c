@@ -6,13 +6,11 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:59:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 11:56:03 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:55:41 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//documentation: https://pubs.opengroup.org/onlinepubs/009695399/utilities/echo.html
 
 static int	ft_has_n_flag( char *arg)
 {

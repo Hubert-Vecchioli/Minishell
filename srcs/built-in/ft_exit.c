@@ -6,7 +6,7 @@
 /*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:50:24 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 12:59:49 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:57:14 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	arg_check_eq2(char **av)
 		ft_set_end(1);
 		return (2);
 	}
-
 }
 
 static int	arg_check_sup2(char **av)

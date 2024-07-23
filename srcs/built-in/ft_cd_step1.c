@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_step1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:28:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 05:57:20 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:55:26 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// documentation can be found here https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cd.html
 
 void	ft_cd_check_direct(t_cd *directory)
 {
@@ -41,7 +39,6 @@ void	ft_cd_check_beg_bslsh(t_cd *directory)
 
 void	ft_cd_has_dots(t_cd *directory)
 {
-
 	if (!ft_strcmp(".", directory->arg) || !ft_strcmp("..", directory->arg))
 	{
 		ft_cd_dup_path(directory);

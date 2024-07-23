@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 10:15:46 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:17:32 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		ft_has_easy_syntax_error(char *line);
 int		ft_easy_error_reviews(char *line);
 int		ft_has_redir_before_pipe(char *line);
 int		ft_is_var_in_env(char *key, t_list **lst_env);
+int		ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);
 void	ft_cd_check_beg_bslsh(t_cd *directory);
@@ -94,7 +95,6 @@ void	ft_clean_saved_ast_link(void);
 void	ft_save_ast_link(t_ast **ast);
 void	ft_clean_env(t_list **lst_env);
 void	ft_clean_ast(t_ast **ast);
-void	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status);
 void	ft_clean_prompt(int sig);
 void	ft_handle_sigint_heredoc(int sig);
 void	ft_pipe(t_ast *ast, t_list **lst_env, int *status);

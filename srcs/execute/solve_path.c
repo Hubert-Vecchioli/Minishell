@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:28:42 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:20:23 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:05:59 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_count_path(char *path)
 static char	*ft_get_subpath(char *path, int *j)
 {
 	char	*ret;
-	int	i;
+	int		i;
 
 	ret = NULL;
 	i = 0;
@@ -52,9 +52,9 @@ static char	*ft_get_subpath(char *path, int *j)
 static char	**ft_split_path(char *path)
 {
 	char	**spath;
-	int	nbpath;
-	int	i;
-	int	j;
+	int		nbpath;
+	int		i;
+	int		j;
 
 	nbpath = ft_count_path(path);
 	spath = malloc(sizeof(char *) * (nbpath + 1));

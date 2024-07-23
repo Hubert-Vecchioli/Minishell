@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 23:30:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 23:12:18 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:02:37 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_pwd(int ac, char **av)
 {
-	(void) ac;
-	(void) av;
 	char	*pwd;
 
+	(void) ac;
+	(void) av;
 	pwd = (char [1024]){0};
 	pwd = getcwd(pwd, 1024);
 	if (pwd)
@@ -26,7 +26,8 @@ int	ft_pwd(int ac, char **av)
 	}
 	else
 	{
-		perror("minishell: pwd: error retrieving current directory: getcwd: cannot access directory");
+		perror("minishell: pwd: error retrieving current directory:\
+ getcwd: cannot access directory");
 	}
 	return (0);
 }

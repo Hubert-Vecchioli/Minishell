@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:10:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 21:21:30 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:46:50 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ static int	ft_is_in_squote(char *line, int i)
 	return (0);
 }
 
-static char	*ft_expand_var_replace(char* line, int i, int j, char *var_content)
+static char	*ft_expand_var_replace(char *line, int i, int j, char *var_content)
 {
-	char 	*bf_var;
-	char 	*aft_var;
+	char	*bf_var;
+	char	*aft_var;
 	int		size;
 
 	size = ft_strlen(line);
 	bf_var = ft_substr(line, 0, i - 1);
 	aft_var = ft_substr(line, i + j, size - (i + j));
 	if (!bf_var || !aft_var)
-		return (free(bf_var), free(var_content), free(aft_var), NULL); // GOOD MALLOC PROTEC IS MISSING
+		return (free(bf_var), free(var_content), free(aft_var), NULL);
 	free(line);
 	if (var_content)
 	{
@@ -61,14 +61,14 @@ static char	*ft_expand_var_replace(char* line, int i, int j, char *var_content)
 	free(bf_var);
 	free(aft_var);
 	if (!line)
-		return (NULL); // GOOD MALLOC PROTEC IS MISSInG
+		return (NULL);
 	return (line);
 }
 
 static char	*ft_expand_get_var_value(char *line, int i, t_list *lst_env)
 {
-	char 	*var_content;
-	char 	*var_name;
+	char	*var_content;
+	char	*var_name;
 	int		j;
 
 	j = 0;
@@ -78,9 +78,7 @@ static char	*ft_expand_get_var_value(char *line, int i, t_list *lst_env)
 		j++;
 	var_name = ft_substr(line, i, j);
 	var_content = ft_getenv_value(var_name, lst_env);
-	// MALLOC PROTEC IS MISSInG
 	line = ft_expand_var_replace(line, i, j, var_content);
-	// MALLOC PROTEC IS MISSInG
 	return (line);
 }
 
@@ -93,7 +91,8 @@ char	*ft_expand_var(char *line, t_list *lst_env)
 		return (NULL);
 	while (line[++i])
 	{
-		if (line[i] != '$' || !line[i + 1] || (line[i] == '$' && !ft_isalnum(line[i + 1])))
+		if (line[i] != '$' || !line[i + 1] || (line[i] == '$'
+				&& !ft_isalnum(line[i + 1])))
 			continue ;
 		if (ft_is_in_squote(line, i))
 			continue ;

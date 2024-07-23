@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   clean_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 11:11:46 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:04:36 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_free_arg(t_arg **arg)
+static	void	ft_free_arg(t_arg **arg)
 {
 	if (!*arg)
-		return;
+		return ;
 	if ((*arg)->arg)
 		free((*arg)->arg);
 	if (&((*arg)->next))
@@ -24,19 +24,19 @@ static void ft_free_arg(t_arg **arg)
 		free(*arg);
 }
 
-static void ft_free_redirect(t_redir **redir)
+static	void	ft_free_redirect(t_redir **redir)
 {
 	if (!*redir)
-		return;
+		return ;
 	free((*redir)->file);
 	ft_free_redirect(&((*redir)->next));
 	free(*redir);
 }
 
-void ft_clean_ast(t_ast **ast)
+void	ft_clean_ast(t_ast **ast)
 {
 	if (!*ast)
-		return;
+		return ;
 	if ((*ast)->type == PIPE)
 	{
 		ft_clean_ast((t_ast **)&((*ast)->left));

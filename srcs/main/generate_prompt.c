@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_prompt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 01:46:32 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 10:16:13 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:59:35 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt)
 	if (prompt->user)
 	{
 		prompt->path = getcwd(NULL, 0);
-		if (!ft_strnstr_end(prompt->path, prompt->user
-			, ft_strlen(prompt->path)))
+		if (!ft_strnstr_end(prompt->path, prompt->user,
+				ft_strlen(prompt->path)))
 			ft_gen_prpt_no_tilde(&lst_env, prompt, prompt->path);
 		else
-			ft_gen_prpt_tilde(&lst_env, prompt, prompt->path);// MALLOC PROTEC IS MISSING
+			ft_gen_prpt_tilde(&lst_env, prompt, prompt->path);
 		return (prompt->prompt_to_display);
 	}
 	else

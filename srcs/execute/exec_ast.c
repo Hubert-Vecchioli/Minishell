@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 14:48:19 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:57:40 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
+static void	ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
 {
-	char **env;
-	int ret;
-	struct stat path_stat;
-	char *error_msg;
+	char		**env;
+	int			ret;
+	struct stat	path_stat;
+	char		*error_msg;
 
 	stat(cpath, &path_stat);
 	if (((path_stat.st_mode) & S_IFMT) == S_IFDIR)
@@ -39,10 +39,10 @@ static void ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
 	exit(ret);
 }
 
-static char *sub_solve_path(char **tab, t_list **lst_env)
+static char	*sub_solve_path(char **tab, t_list **lst_env)
 {
-	char *cpath;
-	char *path_value;
+	char	*cpath;
+	char	*path_value;
 
 	path_value = ft_getenv("PATH=", *lst_env);
 	cpath = ft_find_path(path_value, tab[0]);
@@ -52,12 +52,12 @@ static char *sub_solve_path(char **tab, t_list **lst_env)
 	return (cpath);
 }
 
-static int ft_exec_parent_fct(char **tab, t_list **lst_env)
+static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 {
-	char *cpath;
-	int status;
-	char *error_msg;
-	pid_t pid;
+	char	*cpath;
+	int		status;
+	char	*error_msg;
+	pid_t	pid;
 
 	cpath = sub_solve_path(tab, lst_env);
 	if (!cpath)
@@ -68,12 +68,12 @@ static int ft_exec_parent_fct(char **tab, t_list **lst_env)
 		pid = fork();
 		if (pid == 0)
 			ft_exec_child_fct(tab, lst_env, cpath);
-		else
-			waitpid(pid, &status, 0);
+		waitpid(pid, &status, 0);
 	}
 	else
 	{
-		error_msg = ft_three_strjoin("minishell: ", tab[0], ": command not found");
+		error_msg = ft_three_strjoin("minishell: ", tab[0],
+				": command not found");
 		ft_putendl_fd(error_msg, 2);
 		free(error_msg);
 		status = 127;
@@ -81,15 +81,14 @@ static int ft_exec_parent_fct(char **tab, t_list **lst_env)
 	return (free(cpath), status);
 }
 
-int ft_execute_arg(t_ast *ast, t_list **lst_env)
+int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 {
-	char **tab;
-	int ret;
-	int save_fd[2];
+	char	**tab;
+	int		ret;
+	int		save_fd[2];
 
 	save_fd[0] = dup(0);
 	save_fd[1] = dup(1);
-
 	if (ft_exec_redir(ast->right) != 0)
 		return (1);
 	tab = ft_split_arg(ast->left);
@@ -99,9 +98,7 @@ int ft_execute_arg(t_ast *ast, t_list **lst_env)
 	if (tab && tab[0] && ft_is_builtin_fct(tab[0]))
 		ret = ft_exec_builtin(tab, lst_env);
 	else if (tab && tab[0])
-	{
 		ret = ft_exec_parent_fct(tab, lst_env);
-	}
 	unlink("/tmp/.heredoc");
 	dup2(save_fd[0], 0);
 	dup2(save_fd[1], 1);
@@ -111,35 +108,30 @@ int ft_execute_arg(t_ast *ast, t_list **lst_env)
 	return (ret);
 }
 
-void ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
+int	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 {
-	pid_t pid;
-	t_arg *test;
+	pid_t	pid;
+	t_arg	*test;
 
 	if (!ast)
-		return;
+		return (1);
 	test = ast->left;
-	if (ast->type == COMMAND && test && test->arg && ft_is_builtin_fct(test->arg))
-		*status = ft_execute_arg(ast, lst_env);
-	else
+	if (ast->type == COMMAND && test && test->arg
+		&& ft_is_builtin_fct(test->arg))
+		return (*status = ft_execute_arg(ast, lst_env), 1);
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (ast->type == PIPE)
-				ft_pipe(ast, lst_env, status);
-			else if (ast->type == COMMAND)
-				*status = ft_execute_arg(ast, lst_env);
-			ft_clean_env(lst_env);
-			ft_clean_saved_ast_link();
-			exit(*status);
-		}
-		else
-		{
-			signal(SIGINT, SIG_IGN);
-			waitpid(pid, status, 0);
-			signal(SIGINT, ft_clean_prompt);
-			*status = WEXITSTATUS(*status);
-		}
+		if (ast->type == PIPE)
+			ft_pipe(ast, lst_env, status);
+		else if (ast->type == COMMAND)
+			*status = ft_execute_arg(ast, lst_env);
+		ft_clean_env(lst_env);
+		ft_clean_saved_ast_link();
+		exit(*status);
 	}
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, status, 0);
+	signal(SIGINT, ft_clean_prompt);
+	return (*status = WEXITSTATUS(*status), 1);
 }
