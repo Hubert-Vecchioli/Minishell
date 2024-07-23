@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 18:55:53 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:11:41 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 		signal(SIGINT, ft_clean_prompt);
 		if (ft_get_wip() == 0 && ft_get_status() == 130)
 			return (free(cpath), 130);
-		return (free(cpath), status);
+		return (free(cpath), WEXITSTATUS(status));
 	}
 	error_msg = ft_three_strjoin("minishell: ", tab[0],
 			": command not found");
