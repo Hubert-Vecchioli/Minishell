@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:10:44 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 10:15:48 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:01:57 by ebesnoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_clean_env(t_list **lst_env)
 {
-	ft_lstclear(&(*lst_env)->next, free);
+	ft_lstclear(lst_env, free);
 }
