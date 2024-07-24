@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_step1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:28:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 14:55:26 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:11:08 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_cd_has_dots(t_cd *directory)
 	{
 		ft_cd_dup_path(directory);
 		return ;
-	}		
+	}
 	ft_cd_get_path(directory);
 }
 
