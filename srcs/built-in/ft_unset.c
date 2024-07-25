@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:03:31 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:45:33 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_is_var_in_env(char *key, t_list **lst_env)
 	prev = NULL;
 	if (!*lst_env)
 		return (0);
-	if (temp && !ft_strncmp_env(key, (char *)temp->content, ft_strlen(key)))
+	if (temp && !ft_strncmp_env(key, temp->content, ft_strlen(key)))
 	{
 		*lst_env = temp->next;
 		return (free(temp->content), free(temp), 1);

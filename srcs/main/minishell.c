@@ -6,19 +6,19 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:26:19 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 18:48:38 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:46:47 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	intern_exec(char *line, t_list *lst_env)
+static void	intern_exec(char *line, t_list **lst_env)
 {
 	char	**tab;
 	t_ast	*ast;
 	int		status;
 
-	line = ft_expand_var(line, lst_env);
+	line = ft_expand_var(line, *lst_env);
 	line = ft_expand_tilde(line);
 	line = ft_expand_exit_status(line);
 	tab = ft_split_charset_with_quote(line, WHITESPACES);
@@ -32,19 +32,19 @@ static void	intern_exec(char *line, t_list *lst_env)
 	ast = ft_init_ast(ft_tablen(tab), tab);
 	ft_save_ast_link(&ast);
 	ft_free_split(&tab);
-	ft_execute_ast(ast, &lst_env, &status);
+	ft_execute_ast(ast, lst_env, &status);
 	ft_set_status(status);
 	ft_set_wip(1);
 	ft_clean_ast(&ast);
 }
 
-void	ft_minishell(t_prompt *prompt, t_list *lst_env)
+void	ft_minishell(t_prompt *prompt, t_list **lst_env)
 {
 	char	*line;
 
 	while (1)
 	{
-		ft_generate_prompt(lst_env, prompt);
+		ft_generate_prompt(*lst_env, prompt);
 		line = readline(prompt->prompt_to_display);
 		free(prompt->prompt_to_display);
 		if (!line)

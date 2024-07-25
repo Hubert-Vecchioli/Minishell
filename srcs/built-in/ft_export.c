@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 11:10:18 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:47:52 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ static char	ft_has_special_char(char *str, int n)
 	i = 0;
 	if (str[0] == '*' || str[0] == '$' || str[0] == '?' || str[0] == '='
 		|| str[0] == '#' || str[0] == '-' || str[0] == '!' || str[0] == '@'
-		|| str[0] == '+' || ft_isdigit(str[0]))
+		|| ft_iswhitespace(str[0]) || str[0] == 123 || str[0] == 125
+		|| str[0] == 42 || str[0] == '.'
+		|| str[0] == '%' || str[0] == '+' || ft_isdigit(str[0]))
 		return (str[0]);
 	while (str[i] && i < n)
 	{
 		if (str[i] == '*' || str[i] == '$' || str[i] == '?' || str[i] == '+'
+			|| str[i] == '%' || str[i] == '.' || str[i] == ' '
+			|| str[i] == 123 || str[i] == 125 || str[i] == 42
 			|| str[i] == '#' || str[i] == '-' || str[i] == '!' || str[i] == '@')
 			return (str[i]);
 		i++;
@@ -31,7 +35,7 @@ static char	ft_has_special_char(char *str, int n)
 	return (0);
 }
 
-static int	dup_to_list(char **av, t_list **env)
+static int	ft_dup_to_list(char **av, t_list **env)
 {
 	t_list	*new_node;
 	char	*new_content;
@@ -62,6 +66,29 @@ int	ft_strchr_count(const char *str, char to_find)
 	return (i);
 }
 
+int	ft_error_check(char *av)
+{
+	if (ft_has_special_char(av, ft_strchr_count(av, '=')))
+	{
+		ft_putstr_fd("minishell: export: `", 2);
+		ft_putstr_fd(av, 2);
+		ft_putendl_fd("': not a valid identifier", 2);
+		return (1);
+	}
+	else if (ft_strchr_count(av, '=') == 0
+		&& ft_has_special_char(av, strlen(av)))
+	{
+		ft_putstr_fd("minishell: export: `", 2);
+		ft_putchar_fd(ft_has_special_char(av,
+				strlen(av)), 2);
+		ft_putendl_fd("': not a valid identifier", 2);
+		return (1);
+	}
+	else if (!av[0])
+		ft_putendl_fd("minishell: export: `': not a valid identifier", 2);
+	return (0);
+}
+
 int	ft_export(int ac, char **av, t_list *env)
 {
 	char	*tmp;
@@ -71,19 +98,14 @@ int	ft_export(int ac, char **av, t_list *env)
 		return (ft_print_export(env), 0);
 	while (*av)
 	{
+		if (ft_error_check(*av))
+			return (1);
 		if (ft_strchr_count(*av, '='))
 		{
 			tmp = ft_substr(*av, 0, ft_strchr_count(*av, '='));
 			ft_is_var_in_env(tmp, &env);
 			free(tmp);
-			if (ft_has_special_char(*av, ft_strchr_count(*av, '=')))
-			{
-				ft_putstr_fd("minishell: export: `", 2);
-				ft_putchar_fd(ft_has_special_char(*av,
-						ft_strchr_count(*av, '=')), 2);
-				ft_putendl_fd("': not a valid identifier", 2);
-			}
-			else if (dup_to_list(av, &env))
+			if (ft_dup_to_list(av, &env))
 				return (1);
 		}
 		av++;

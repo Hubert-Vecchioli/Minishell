@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 11:10:30 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:46:18 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_free_split(char ***tab);
 void	ft_set_status(int status);
 void	ft_setenv(char *key, char *value, t_list **lst_env);
 void	ft_set_end(int status);
-void	ft_minishell(t_prompt *prompt, t_list *lst_env);
+void	ft_minishell(t_prompt *prompt, t_list **lst_env);
 void	ft_clean_prompt2(int sig);
 void	ft_print_export(t_list *env);
 
