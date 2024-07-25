@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 11:31:29 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:55:09 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 {
 	char	*cpath;
 	int		status;
-	char	*error_msg;
 	pid_t	pid;
 
 	cpath = sub_solve_path(tab, lst_env);
@@ -75,10 +74,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 			return (free(cpath), 130);
 		return (free(cpath), WEXITSTATUS(status));
 	}
-	error_msg = ft_three_strjoin("minishell: ", tab[0],
-			": command not found");
-	ft_putendl_fd(error_msg, 2);
-	return (free(error_msg), free(cpath), 127);
+	return (free(cpath), ft_is_path_allowed(tab[0]));
 }
 
 int	ft_execute_arg(t_ast *ast, t_list **lst_env)

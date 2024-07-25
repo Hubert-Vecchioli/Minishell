@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 12:51:54 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:54:17 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		ft_is_in_squote(char *line, int i);
 int		ft_is_in_quote(char *line, int i);
 int		ft_get_wip(void);
 int		ft_strchr_count(const char *str, char to_find);
+int		ft_is_path_allowed(char *tab);
 void	ft_set_wip(int status);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:16:10 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:54:58 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,26 @@ int	ft_is_redirection(char *str)
 		return (APPEND);
 	else
 		return (NONE);
+}
+
+int	ft_is_path_allowed(char *tab)
+{
+	char	*error_msg;
+
+	if (access(tab, X_OK) != 0)
+	{
+		error_msg = ft_three_strjoin("minishell: ", tab,
+				": permission denied");
+		ft_putendl_fd(error_msg, 2);
+		free(error_msg);
+		return (126);
+	}
+	else
+	{
+		error_msg = ft_three_strjoin("minishell: ", tab,
+				": command not found");
+		ft_putendl_fd(error_msg, 2);
+		free(error_msg);
+		return (127);
+	}
 }
