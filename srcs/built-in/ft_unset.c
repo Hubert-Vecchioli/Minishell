@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 13:11:07 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:44:10 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	ft_error_check(char *av)
 		return (1);
 	}
 	else if (!av[0])
+	{
 		ft_putendl_fd("minishell: unset: `': not a valid identifier", 2);
+		return (1);
+	}
 	return (0);
 }
 
@@ -96,8 +99,8 @@ int	ft_unset(int ac, char **av, t_list **env)
 {
 	int	status;
 
-	status = 0;
 	(void) ac;
+	status = 0;
 	av++;
 	while (*av)
 	{

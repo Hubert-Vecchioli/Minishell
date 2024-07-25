@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:00:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 12:42:25 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:43:04 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_exec_builtin(char **tab, t_list **lst_env)
 	else if (!ft_strcmp(*tab, "export"))
 		return (ft_export(ft_tablen(tab), tab, *lst_env));
 	else if (!ft_strcmp(*tab, "unset"))
-		return (ft_unset(ft_tablen(tab), tab, lst_env), 1);
+		return (ft_unset(ft_tablen(tab), tab, lst_env));
 	else if (!ft_strcmp(*tab, "env"))
 		return (ft_env(ft_tablen(tab), tab, *lst_env));
 	else if (!ft_strcmp(*tab, "exit"))

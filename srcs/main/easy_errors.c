@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 16:30:08 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:44:57 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static int	ft_has_easy_errors(char *line)
 		if ((line[i] == '<' && line[i + 1] == '<' && line[i + 2] == '<'))
 			return (ft_set_status(2), ft_putendl_fd("minishell: \
  syntax error near unexpected token: '<<'", 2), 1);
+		if ((line[i] == '|' && line[i + 1] == '|' && line[i + 2] == '|'))
+			return (ft_set_status(2), ft_putendl_fd("minishell: \
+ syntax error near unexpected token: '|'", 2), 1);
 		i++;
 	}
 	if (((line[0] == 34 && line[1] == 34) || (line[0] == 39
