@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 21:40:53 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/20 06:07:13 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:24:19 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@ static t_arg	*init_arg(char **av)
 {
 	t_arg	*arg;
 
-	if (!*av || ft_is_redirection(*av) || **av == '|')
-		return (NULL);
+	while (!*av || **av == '|' || ft_is_redirection(*av))
+	{
+		if (!*av || **av == '|')
+			return (NULL);
+		if (ft_is_redirection(*av) == HEREDOC)
+			av++;
+		av++;
+	}
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
 		return (perror("minishell: init_arg"), NULL);
