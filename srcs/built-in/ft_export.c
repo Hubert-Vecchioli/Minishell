@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 12:47:52 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:52:04 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_strchr_count(const char *str, char to_find)
 	return (i);
 }
 
-int	ft_error_check(char *av)
+static int	ft_error_check(char *av)
 {
 	if (ft_has_special_char(av, ft_strchr_count(av, '=')))
 	{
