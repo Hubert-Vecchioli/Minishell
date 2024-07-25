@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 13:54:58 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:09:35 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ int	ft_is_redirection(char *str)
 
 int	ft_is_path_allowed(char *tab)
 {
-	char	*error_msg;
+	struct stat	sb;
+	char		*error_msg;
 
-	if (access(tab, X_OK) != 0)
+	if (stat(tab, &sb) == 0 && access(tab, X_OK) != 0)
 	{
 		error_msg = ft_three_strjoin("minishell: ", tab,
 				": permission denied");
