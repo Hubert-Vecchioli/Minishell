@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 19:55:06 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:10:18 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	dup_to_list(char **av, t_list **env)
 	return (0);
 }
 
-static int	ft_strchr_count(const char *str, char to_find)
+int	ft_strchr_count(const char *str, char to_find)
 {
 	int	i;
 
@@ -62,19 +62,19 @@ static int	ft_strchr_count(const char *str, char to_find)
 	return (i);
 }
 
-int	ft_export(int ac, char **av, t_list **env)
+int	ft_export(int ac, char **av, t_list *env)
 {
 	char	*tmp;
 
 	(void) ac;
 	if (!*(++av))
-		return (ft_env(0, NULL, *env), 0);
+		return (ft_print_export(env), 0);
 	while (*av)
 	{
 		if (ft_strchr_count(*av, '='))
 		{
 			tmp = ft_substr(*av, 0, ft_strchr_count(*av, '='));
-			ft_is_var_in_env(tmp, env);
+			ft_is_var_in_env(tmp, &env);
 			free(tmp);
 			if (ft_has_special_char(*av, ft_strchr_count(*av, '=')))
 			{
@@ -83,7 +83,7 @@ int	ft_export(int ac, char **av, t_list **env)
 						ft_strchr_count(*av, '=')), 2);
 				ft_putendl_fd("': not a valid identifier", 2);
 			}
-			else if (dup_to_list(av, env))
+			else if (dup_to_list(av, &env))
 				return (1);
 		}
 		av++;
