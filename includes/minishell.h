@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 14:08:10 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:35:22 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list	*ft_init_env(char **env);
 t_ast	*ft_init_ast(int ac, char **av);
 char	*ft_getenv(char *key, t_list *lst_env);
 char	*ft_getcwd(void);
-char	*ft_subcdpath(char *cdpath); // to review
+char	*ft_subcdpath(char *cdpath); 
 char	*ft_find_path(char *path, char *key);
 char	*ft_three_strjoin(char *str1, char *str2, char *str3);
 char	*ft_getenv_value(char *key, t_list *lst_env);
@@ -112,5 +112,6 @@ void	ft_set_end(int status);
 void	ft_minishell(t_prompt *prompt, t_list **lst_env);
 void	ft_clean_prompt2(int sig);
 void	ft_print_export(t_list *env);
+void	ft_ast_print(t_ast *ast, int level); // DEBUG FCT
 
 #endif
