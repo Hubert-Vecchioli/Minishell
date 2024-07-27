@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 21:40:53 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 16:30:39 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:55:06 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static t_arg	*init_arg(char **av)
 	{
 		if (!*av || **av == '|')
 			return (NULL);
-		if (ft_is_redirection(*av) == HEREDOC)
-			av++;
 		av++;
+		if (*av)
+			av++;
 	}
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
@@ -46,8 +46,10 @@ static t_redir	*init_redirect(char **av)
 	*redir = (t_redir){0};
 	if (*av)
 		redir->type = ft_is_redirection(*av++);
-	if (*av)
+	if (*av && **av)
 		redir->file = ft_strdup(*av++);
+	else
+		redir->file = 0;
 	if (*av)
 		redir->next = init_redirect(av);
 	return (redir);

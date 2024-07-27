@@ -6,24 +6,16 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:04:35 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/24 12:18:10 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:54:18 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	c_s(char *src, char *charset, int pos)
+static void	ft_skip_charset(char *src, char *charset, int *i)
 {
-	int	j;
-
-	j = 0;
-	while (charset[j])
-	{
-		if (src[pos] == charset[j])
-			return (1);
-		j++;
-	}
-	return (0);
+	while (src[*i] && c_s(src, charset, *i) && !ft_is_in_squote(src, *i))
+		(*i)++;
 }
 
 static int	ft_ct_wd_w_qte(char *src, char *charset, int count, int i)
@@ -32,20 +24,16 @@ static int	ft_ct_wd_w_qte(char *src, char *charset, int count, int i)
 
 	while (src[i])
 	{
-		while (src[i] && c_s(src, charset, i) && !ft_is_in_squote(src, i))
-			i++;
+		ft_skip_charset(src, charset, &i);
 		if (src[i])
 			count++;
 		j = 0;
 		while (src[i] && (!c_s(src, charset, i) || ft_is_in_quote(src, i)))
 		{
-			if (i && !ft_is_in_quote(src, i) && (src[i] == '|'))
-			{
-				if (j)
-					break ;
-				else if (j == 0 && ++i)
-					break ;
-			}
+			if (ft_split_count_pipe(src, &i, &j))
+				break ;
+			if (ft_split_count_redirect(src, &i, &j))
+				break ;
 			j++;
 			i++;
 		}
@@ -60,17 +48,10 @@ static int	ft_ct_wd_l_w_qte(char *src, char *charset, int pos)
 	count = 0;
 	while (src[pos] && (!c_s(src, charset, pos) || ft_is_in_quote(src, pos)))
 	{
-		if (pos > 0 && !ft_is_in_quote(src, pos) && (src[pos] == '|'))
-		{
-			if (count)
-				break ;
-			else
-			{
-				pos++;
-				count++;
-				break ;
-			}
-		}
+		if (ft_split_count_pipe(src, &pos, &count))
+			break ;
+		if (ft_split_count_redirect(src, &pos, &count))
+			break ;
 		pos++;
 		count++;
 	}
@@ -88,7 +69,7 @@ static char	**ft_free(char **split, int pos)
 	return (NULL);
 }
 
-char	**ft_split_charset_with_quote(char *s, char *chset)
+char	**ft_split_charset_with_quote(char *s, char *chset, t_list **lst_env)
 {
 	char	**split;
 	int		i;
@@ -106,7 +87,7 @@ char	**ft_split_charset_with_quote(char *s, char *chset)
 		if (ft_ct_wd_l_w_qte(s, chset, i))
 		{
 			split[j] = ft_substr(s, i, ft_ct_wd_l_w_qte(s, chset, i));
-			split[j] = ft_remove_quotes(split[j]);
+			split[j] = ft_expand_var(ft_remove_quotes(split[j]), *lst_env, 1);
 			if (!split[j])
 				return (ft_free(split, j));
 			j++;

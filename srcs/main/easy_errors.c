@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 14:44:57 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:12:00 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	ft_easy_error_reviews(char *line)
 	if (ft_has_redir_before_pipe(line))
 		return (0);
 	if (ft_has_easy_syntax_error(line))
+		return (0);
+	if (ft_has_easy_syntax_error_bis(line))
 		return (0);
 	if (ft_has_easy_pipe_errors(line))
 		return (0);

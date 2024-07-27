@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 14:07:56 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:51:54 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_execute_ast(t_ast *ast, t_list **lst_env, int *status)
 		return (1);
 	test = ast->left;
 	if (ast->type == COMMAND && test && test->arg
-		&& ft_is_builtin_fct(test->arg))
+		&& ft_is_prio_builtin_fct(test->arg))
 		return (*status = ft_execute_arg(ast, lst_env), 1);
 	pid = fork();
 	if (pid == 0)

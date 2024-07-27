@@ -6,11 +6,25 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:10:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 18:11:41 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:58:43 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_has_redir_before(char *line, int i)
+{
+	int	j;
+
+	j = 1;
+	while ((i - j) >= 0 && line[i - j] && ft_iswhitespace(line[i - j]))
+		j++;
+	if (line[i - j] == '<' && line[i - j - 1] == '<')
+		return (0);
+	if (line[i - j] == '>' || line[i - j] == '<')
+		return (1);
+	return (0);
+}
 
 static char	*ft_expand_var_replace(char *line, int i, int j, char *var_content)
 {
@@ -55,7 +69,7 @@ static char	*ft_expand_get_var_value(char *line, int i, t_list *lst_env)
 	return (line);
 }
 
-char	*ft_expand_var(char *line, t_list *lst_env)
+char	*ft_expand_var(char *line, t_list *lst_env, int j)
 {
 	int		i;
 
@@ -70,6 +84,8 @@ char	*ft_expand_var(char *line, t_list *lst_env)
 				|| (line[i + 1] != '\"' && line[i + 1] != '\'')))
 			continue ;
 		if (ft_is_in_squote(line, i))
+			continue ;
+		if (j == 1 && ft_has_redir_before(line, i))
 			continue ;
 		i++;
 		line = ft_expand_get_var_value(line, i, lst_env);

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 15:35:22 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:56:55 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ t_list	*ft_init_env(char **env);
 t_ast	*ft_init_ast(int ac, char **av);
 char	*ft_getenv(char *key, t_list *lst_env);
 char	*ft_getcwd(void);
-char	*ft_subcdpath(char *cdpath); 
+char	*ft_subcdpath(char *cdpath);
 char	*ft_find_path(char *path, char *key);
 char	*ft_three_strjoin(char *str1, char *str2, char *str3);
 char	*ft_getenv_value(char *key, t_list *lst_env);
 char	*ft_expand_tilde(char *line);
 char	*ft_expand_exit_status(char *line);
-char	*ft_expand_var(char *line, t_list *lst_env);
+char	*ft_expand_var(char *line, t_list *lst_env, int j);
 char	*ft_remove_quotes(char *line);
 char	*ft_generate_prompt(t_list *lst_env, t_prompt *prompt);
 char	**ft_convert_lst_to_tab(t_list *lst_env);
 char	**ft_split_arg(t_arg *arg);
-char	**ft_split_charset_with_quote(char *s, char *chset);
+char	**ft_split_charset_with_quote(char *s, char *chset, t_list **lst_env);
 int		ft_pwd(int ac, char **av);
 int		ft_exit(int ac, char **av, int status, t_list **env);
 int		ft_env(int ac, char **av, t_list *env);
-int		ft_export(int ac, char **av, t_list *env);
+int		ft_export(int ac, char **av, t_list **env);
 int		ft_unset(int ac, char **av, t_list **env);
 int		ft_cd(int ac, char **av, t_list **env);
 int		ft_echo(int ac, char **av);
@@ -87,6 +87,11 @@ int		ft_is_in_quote(char *line, int i);
 int		ft_get_wip(void);
 int		ft_strchr_count(const char *str, char to_find);
 int		ft_is_path_allowed(char *tab);
+int		ft_is_prio_builtin_fct(char *path);
+int		ft_has_easy_syntax_error_bis(char *line);
+int		c_s(char *src, char *charset, int pos);
+int		ft_split_count_pipe(char *src, int *pos, int *count);
+int		ft_split_count_redirect(char *src, int *pos, int *count);
 void	ft_set_wip(int status);
 void	ft_cd_check_direct(t_cd *directory);
 void	ft_cd_check_home_var(t_cd *directory);

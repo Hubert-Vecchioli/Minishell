@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 04:40:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 14:01:26 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 09:50:55 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	ft_redir_input(char *file)
 {
 	int	new_fd;
 
+	if (!file)
+		return (ft_putendl_fd("minishell: ambiguous redirect", 2), -4);
 	new_fd = open(file, O_RDONLY);
 	if (new_fd == -1)
 	{
@@ -59,7 +61,9 @@ static int	ft_redir_output(char *file)
 {
 	int	new_fd;
 
-	new_fd = open(file, O_CREAT | O_WRONLY, 0666);
+	if (!file)
+		return (ft_putendl_fd("minishell: ambiguous redirect", 2), -4);
+	new_fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0744);
 	if (new_fd == -1)
 	{
 		perror(file);
@@ -74,6 +78,8 @@ static int	ft_redir_append(char *file)
 {
 	int		new_fd;
 
+	if (!file)
+		return (ft_putendl_fd("minishell: ambiguous redirect", 2), -4);
 	new_fd = open(file, O_CREAT | O_APPEND | O_WRONLY, 0666);
 	if (new_fd == -1)
 	{
@@ -104,6 +110,8 @@ int	ft_exec_redir(t_redir *redir)
 			if (i == 2)
 				return (130);
 		}
+		if (i == -4)
+			return (1);
 		if (i == 0)
 			return (-1);
 		redir = redir->next;
