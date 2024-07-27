@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:28:49 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/24 12:11:08 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 01:26:16 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	ft_cd_check_direct(t_cd *directory)
 {
 	if (!directory->arg && !ft_have_env_var_home(*directory->env))
-		return ;
+		{
+			directory->ret = 1;
+			ft_putendl_fd("minishell: cd: HOME not set", 1);
+			return ;
+		}
 	ft_cd_check_home_var(directory);
 }
 
