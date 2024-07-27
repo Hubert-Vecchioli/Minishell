@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 09:47:55 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/27 09:57:25 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:00:48 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_split_count_pipe(char *src, int *pos, int *count)
 	return (0);
 }
 
-static int	ft_split_count_redirect(char *src, int *pos, int *count)
+int	ft_split_count_redirect(char *src, int *pos, int *count)
 {
 	if (!ft_is_in_quote(src, *pos) && (src[*pos] == '>' || src[*pos] == '<'))
 	{
