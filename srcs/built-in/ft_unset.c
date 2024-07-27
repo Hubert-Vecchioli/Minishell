@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 14:44:10 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 01:57:01 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_strncmp_env(const char *str1, const char *str2, size_t n)
 	{
 		i++;
 	}
-	if (str2[i + 1] == '=')
+	if (str1[i] == str2[i] && str2[i + 1] == '=')
 		return (0);
 	return (1);
 }
