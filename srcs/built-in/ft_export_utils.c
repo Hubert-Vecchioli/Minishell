@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:40:23 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/26 14:35:19 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:19:59 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void	ft_print_export(t_list *env)
 	while (tmp)
 	{
 		n = ft_strchr_count(tmp->content, '=');
-		ft_putstr_fd("declare -x  ", 1);
+		ft_putstr_fd("declare -x  ", STDOUT_FILENO);
 		ft_putstr_n_from_m_fd(tmp->content, 1, n + 1, 0);
 		ft_putchar_fd('\"', 1);
 		ft_putstr_n_from_m_fd(tmp->content, 1, ft_strlen(tmp->content) - n
 			- 1, n + 1);
-		ft_putendl_fd("\"", 1);
+		ft_putendl_fd("\"", STDOUT_FILENO);
 		tmp = tmp->next;
 	}
 	if (tmp)

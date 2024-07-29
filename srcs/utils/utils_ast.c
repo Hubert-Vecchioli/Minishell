@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/26 01:58:12 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:22:17 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,21 @@ int	ft_is_path_allowed(char *tab)
 	{
 		error_msg = ft_three_strjoin("minishell: ", tab,
 				": permission denied");
-		ft_putendl_fd(error_msg, 2);
-		free(error_msg);
-		return (126);
+		ft_putendl_fd(error_msg, STDERR_FILENO);
+		return (free(error_msg), 126);
+	}
+	else if (ft_strchr(tab, '/') && stat(tab, &sb) != 0)
+	{
+		error_msg = ft_three_strjoin("minishell: ", tab,
+				": No such file or directory");
+		ft_putendl_fd(error_msg, STDERR_FILENO);
+		return (free(error_msg), 127);
 	}
 	else
 	{
 		error_msg = ft_three_strjoin("minishell: ", tab,
 				": command not found");
-		ft_putendl_fd(error_msg, 2);
-		free(error_msg);
-		return (127);
+		ft_putendl_fd(error_msg, STDERR_FILENO);
+		return (free(error_msg), 127);
 	}
 }

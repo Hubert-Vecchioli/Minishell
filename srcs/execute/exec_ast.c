@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/27 09:51:54 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:21:01 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
 	if (((path_stat.st_mode) & S_IFMT) == S_IFDIR)
 	{
 		error_msg = ft_three_strjoin("minishell: ", tab[0], ": is a directory");
-		ft_putendl_fd(error_msg, 2);
+		ft_putendl_fd(error_msg, STDERR_FILENO);
 		free(error_msg);
 		free(cpath);
 		ft_clean_env(lst_env);
@@ -94,7 +94,7 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	tab = ft_split_arg(ast->left);
 	if (!tab)
 		perror("minishell: exec_arg");
-	ret = 0;
+	ret = redir_value;
 	if (tab && tab[0] && ft_is_builtin_fct(tab[0]))
 		ret = ft_exec_builtin(tab, lst_env);
 	else if (tab && tab[0])

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 04:40:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/27 09:50:55 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:21:31 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ft_redir_input(char *file)
 	new_fd = open(file, O_RDONLY);
 	if (new_fd == -1)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(file);
 		return (0);
 	}
@@ -36,6 +37,7 @@ static int	ft_redir_heredoc(char *file)
 	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY, 0666);
 	if (fd == -1)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror("/tmp/.heredoc");
 		return (0);
 	}
@@ -66,6 +68,7 @@ static int	ft_redir_output(char *file)
 	new_fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0744);
 	if (new_fd == -1)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(file);
 		return (0);
 	}
@@ -83,6 +86,7 @@ static int	ft_redir_append(char *file)
 	new_fd = open(file, O_CREAT | O_APPEND | O_WRONLY, 0666);
 	if (new_fd == -1)
 	{
+		ft_putendl_fd("minishell: ", STDERR_FILENO);
 		perror(file);
 		return (0);
 	}

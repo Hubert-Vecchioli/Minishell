@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 01:40:05 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:20:23 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	ft_dup_to_list(char **av, t_list ***env)
 		free(new_node);
 		return (perror("minishell: Malloc failure"), 1);
 	}
+	free(new_content);
 	ft_lstadd_back(*env, new_node);
 	return (0);
 }
@@ -70,22 +71,22 @@ static int	ft_error_check(char *av)
 {
 	if (ft_has_special_char(av, ft_strchr_count(av, '=')))
 	{
-		ft_putstr_fd("minishell: export: `", 2);
-		ft_putstr_fd(av, 2);
-		ft_putendl_fd("': not a valid identifier", 2);
+		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+		ft_putstr_fd(av, STDERR_FILENO);
+		ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 		return (1);
 	}
 	else if (ft_strchr_count(av, '=') == 0
 		&& ft_has_special_char(av, strlen(av)))
 	{
-		ft_putstr_fd("minishell: export: `", 2);
+		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 		ft_putchar_fd(ft_has_special_char(av,
-				strlen(av)), 2);
-		ft_putendl_fd("': not a valid identifier", 2);
+				strlen(av)), STDERR_FILENO);
+		ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 		return (1);
 	}
 	else if (!av[0])
-		ft_putendl_fd("minishell: export: `': not a valid identifier", 2);
+		ft_putendl_fd("minishell: export: `': not a valid identifier", STDERR_FILENO);
 	return (0);
 }
 

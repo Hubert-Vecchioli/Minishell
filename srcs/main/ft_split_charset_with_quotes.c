@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:04:35 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/27 09:54:18 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:34:19 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**ft_split_charset_with_quote(char *s, char *chset, t_list **lst_env)
 		if (ft_ct_wd_l_w_qte(s, chset, i))
 		{
 			split[j] = ft_substr(s, i, ft_ct_wd_l_w_qte(s, chset, i));
-			split[j] = ft_expand_var(ft_remove_quotes(split[j]), *lst_env, 1);
+			split[j] = ft_expand_var(ft_remove_quotes(split[j]), *lst_env, 0);
 			if (!split[j])
 				return (ft_free(split, j));
 			j++;

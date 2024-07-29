@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:48:55 by ebesnoin          #+#    #+#             */
-/*   Updated: 2024/07/23 16:49:17 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:33:39 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 int	ft_is_in_squote(char *line, int i)
 {
@@ -19,7 +21,7 @@ int	ft_is_in_squote(char *line, int i)
 	in_quotes = 0;
 	q_type = 0;
 	j = -1;
-	while (line[++j] && j < i)
+	while (line[++j] && j <= i)
 	{
 		if ((line[j] == '\"' || line[j] == '\''))
 		{
