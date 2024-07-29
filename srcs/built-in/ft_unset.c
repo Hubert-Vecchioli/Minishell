@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:20:48 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:26:09 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_strncmp_env(const char *str1, const char *str2, size_t n)
 	{
 		i++;
 	}
-	if (str1[i] == str2[i] && str2[i + 1] == '=')
+	if (str1[i] == str2[i] && (str2[i + 1] == '=' || !str2[i + 1]))
 		return (0);
 	return (1);
 }
@@ -89,7 +89,7 @@ int	ft_error_check(char *av)
 	}
 	else if (!av[0])
 	{
-		ft_putendl_fd("minishell: unset: `': not a valid identifier", STDERR_FILENO);
+		ft_putendl_fd("minishell: unset: `': not a valid identifier", 2);
 		return (1);
 	}
 	return (0);
@@ -104,8 +104,6 @@ int	ft_unset(int ac, char **av, t_list **env)
 	av++;
 	while (*av)
 	{
-		if (ft_error_check(*av))
-			status = 1;
 		ft_is_var_in_env(*av, env);
 		av++;
 	}

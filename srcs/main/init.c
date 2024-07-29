@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:44:13 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 10:16:15 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:35:50 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_intern_init(t_prompt *prompt, char **env, t_list **lst_env)
 	signal(SIGQUIT, SIG_IGN);
 	prompt->user = getenv("USER");
 	*lst_env = ft_init_env(env);
-	if (!*lst_env || !prompt->user)
+	if (!*lst_env)
 	{
 		perror("minishell: init_env");
 		return (1);

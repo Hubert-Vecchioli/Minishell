@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 10:40:23 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:19:59 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:39 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,11 @@ static void	ft_putstr_n_from_m_fd(char *s, int fd, int n, int m)
 	write(fd, s + m, n);
 }
 
-static int	ft_lstswap_content(t_list *cursor, t_list *tmp)
-{
-	char	*content;
-
-	content = cursor->content;
-	cursor->content = tmp->content;
-	tmp->content = content;
-	return (1);
-}
-
 static int	ft_sort_lst(t_list **env)
 {
 	t_list	*current;
 	t_list	*tmp;
+	char	*content;
 
 	current = *env;
 	while (current)
@@ -42,7 +33,9 @@ static int	ft_sort_lst(t_list **env)
 		{
 			if (ft_strcmp(current->content, tmp->content) > 0)
 			{
-				ft_lstswap_content(current, tmp);
+				content = current->content;
+				current->content = tmp->content;
+				tmp->content = content;
 				current = *env;
 				break ;
 			}
@@ -57,38 +50,49 @@ static int	ft_duplicate_lst(t_list **env, t_list **new_env)
 {
 	t_list	*current;
 	t_list	*new;
+	char	*contt;
 
 	current = *env;
 	while (current)
 	{
-		new = ft_lstnew(current->content);
+		contt = ft_strdup(current->content);
+		if (!contt)
+			return (ft_clean_env(new_env), 0);
+		new = ft_lstnew(contt);
 		if (!new)
-			return (0);
+			return (ft_clean_env(new_env), 0);
 		ft_lstadd_back(new_env, new);
 		current = current->next;
 	}
-	return (ft_sort_lst(new_env));
+	ft_sort_lst(new_env);
+	return (1);
 }
 
 void	ft_print_export(t_list *env)
 {
 	t_list	*tmp;
+	t_list	*save;
 	int		n;
 
 	tmp = NULL;
 	if (!ft_duplicate_lst(&env, &tmp))
 		return ;
+	save = tmp;
 	while (tmp)
 	{
 		n = ft_strchr_count(tmp->content, '=');
-		ft_putstr_fd("declare -x  ", STDOUT_FILENO);
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_n_from_m_fd(tmp->content, 1, n + 1, 0);
-		ft_putchar_fd('\"', 1);
-		ft_putstr_n_from_m_fd(tmp->content, 1, ft_strlen(tmp->content) - n
-			- 1, n + 1);
-		ft_putendl_fd("\"", STDOUT_FILENO);
+		if (n)
+		{
+			ft_putchar_fd('\"', 1);
+			ft_putstr_n_from_m_fd(tmp->content, 1, ft_strlen(tmp->content) - n
+				- 1, n + 1);
+			ft_putstr_fd("\"", STDOUT_FILENO);
+		}
+		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}
-	if (tmp)
-		ft_clean_env(&tmp);
+	if (save)
+		ft_clean_env(&save);
 }

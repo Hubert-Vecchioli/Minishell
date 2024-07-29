@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:07 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 01:39:52 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:23:10 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**ft_split_charset_with_quote(char *s, char *chset, t_list **lst_env);
 int		ft_pwd(int ac, char **av);
 int		ft_exit(int ac, char **av, int status, t_list **env);
 int		ft_env(int ac, char **av, t_list *env);
-int		ft_export(int ac, char **av, t_list **env);
+int		ft_export(char **av, t_list **env);
 int		ft_unset(int ac, char **av, t_list **env);
 int		ft_cd(int ac, char **av, t_list **env);
 int		ft_echo(int ac, char **av);
@@ -117,6 +117,7 @@ void	ft_set_end(int status);
 void	ft_minishell(t_prompt *prompt, t_list **lst_env);
 void	ft_clean_prompt2(int sig);
 void	ft_print_export(t_list *env);
-void	ft_ast_print(t_ast *ast, int level); // DEBUG FCT
+void	ft_ast_print(t_ast *ast, int level);
+void	ft_close_fds(int save_fd[2]);
 
 #endif

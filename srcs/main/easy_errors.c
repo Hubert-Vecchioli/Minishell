@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:18:25 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:25:28 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:28:26 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_has_easy_errors(char *line)
 	int	i;
 
 	i = 0;
- 	if (line[0] == '|' && line[1] == '|')
+	if (line[0] == '|' && line[1] == '|')
 		return (ft_set_status(2), ft_putendl_fd("minishell: \
 syntax error near unexpected token: '||'", 2), 1);
 	while (line[i] && line[i + 1] && line[i + 2])

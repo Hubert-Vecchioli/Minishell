@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:28:30 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 13:40:07 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:15:47 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_cd(int ac, char **av, t_list **env)
 	free(cd_var.new_pwd);
 	if (cd_var.ret == -1)
 	{
+		path_stat.st_mode = 0;
 		stat(av[1], &path_stat);
 		if (((path_stat.st_mode) & S_IFMT) != S_IFDIR)
 		{

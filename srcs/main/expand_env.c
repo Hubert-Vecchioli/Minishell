@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:10:36 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/29 00:33:40 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:29:27 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static char	*ft_expand_get_var_value(char *line, int *i, t_list *lst_env)
 	var_name = ft_substr(line, *i, j);
 	var_content = ft_getenv_value(var_name, lst_env);
 	line = ft_expand_var_replace(line, i, j, var_content);
+	free(var_name);
 	return (line);
 }
 
@@ -101,8 +102,6 @@ char	*ft_expand_var(char *line, t_list *lst_env, int j)
 			continue ;
 		if (j == 1 && ft_has_redir_before(line, i))
 			continue ;
-		// if (j == 0 && !ft_has_redir_before(line, i))
-		// 	continue ;
 		i++;
 		line = ft_expand_get_var_value(line, &i, lst_env);
 	}

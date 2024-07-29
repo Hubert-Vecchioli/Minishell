@@ -6,19 +6,21 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 03:20:17 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:21:01 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:51 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
+static void	ft_exec_child_fct(char **tab, t_list **lst_env,
+char *cpath, int save_fd[2])
 {
 	char		**env;
 	int			ret;
 	struct stat	path_stat;
 	char		*error_msg;
 
+	path_stat.st_mode = 0;
 	stat(cpath, &path_stat);
 	if (((path_stat.st_mode) & S_IFMT) == S_IFDIR)
 	{
@@ -30,6 +32,7 @@ static void	ft_exec_child_fct(char **tab, t_list **lst_env, char *cpath)
 		exit(126);
 	}
 	env = ft_convert_lst_to_tab(*lst_env);
+	ft_close_fds(save_fd);
 	ret = execve(cpath, tab, env);
 	if (ret == -1)
 		perror(tab[0]);
@@ -52,7 +55,7 @@ static char	*sub_solve_path(char **tab, t_list **lst_env)
 	return (cpath);
 }
 
-static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
+static int	ft_exec_parent_fct(char **tab, t_list **lst_env, int save_fd[2])
 {
 	char	*cpath;
 	int		status;
@@ -66,7 +69,7 @@ static int	ft_exec_parent_fct(char **tab, t_list **lst_env)
 	{
 		pid = fork();
 		if (pid == 0)
-			ft_exec_child_fct(tab, lst_env, cpath);
+			ft_exec_child_fct(tab, lst_env, cpath, save_fd);
 		signal(SIGINT, ft_clean_prompt2);
 		waitpid(pid, &status, 0);
 		signal(SIGINT, ft_clean_prompt);
@@ -98,7 +101,7 @@ int	ft_execute_arg(t_ast *ast, t_list **lst_env)
 	if (tab && tab[0] && ft_is_builtin_fct(tab[0]))
 		ret = ft_exec_builtin(tab, lst_env);
 	else if (tab && tab[0])
-		ret = ft_exec_parent_fct(tab, lst_env);
+		ret = ft_exec_parent_fct(tab, lst_env, save_fd);
 	unlink("/tmp/.heredoc");
 	dup2(save_fd[0], 0);
 	dup2(save_fd[1], 1);

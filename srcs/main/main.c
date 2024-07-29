@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:01:20 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/25 12:46:04 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:42:33 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ Minishell needs no arg"), 0);
 	if (ft_get_end() == 0)
 		ft_putendl_fd("exit", STDOUT_FILENO);
 	ft_clean_env(&lst_env);
-	clear_history();
+	rl_clear_history();
 	return (ft_get_status());
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebesnoin <ebesnoin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 01:31:39 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/23 15:46:08 by ebesnoin         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:27:05 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	ft_is_env_var(char *key, t_list *lst_env)
 	while (lst_env)
 	{
 		if (!ft_strncmp(key, lst_env->content, ft_strlen(key))
-			&& ((char*)lst_env->content)[ft_strlen(key)] == '=')
+			&& (((char*)lst_env->content)[ft_strlen(key)] == '='
+			|| !((char*)lst_env->content)[ft_strlen(key)]))
 			return (1);
 		lst_env = lst_env->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:30:54 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:22:17 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:23:04 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,10 @@ int	ft_is_path_allowed(char *tab)
 		ft_putendl_fd(error_msg, STDERR_FILENO);
 		return (free(error_msg), 127);
 	}
+}
+
+void	ft_close_fds(int save_fd[2])
+{
+	close(save_fd[0]);
+	close(save_fd[1]);
 }

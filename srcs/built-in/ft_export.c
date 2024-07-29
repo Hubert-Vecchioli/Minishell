@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/28 21:20:23 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:26:00 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,14 @@ static int	ft_error_check(char *av)
 		return (1);
 	}
 	else if (!av[0])
-		ft_putendl_fd("minishell: export: `': not a valid identifier", STDERR_FILENO);
+		ft_putendl_fd("minishell: export: `': not a valid identifier", 2);
 	return (0);
 }
 
-int	ft_export(int ac, char **av, t_list **env)
+int	ft_export(char **av, t_list **env)
 {
 	char	*tmp;
 
-	(void) ac;
 	if (!*(++av))
 		return (ft_print_export(*env), 0);
 	while (*av)
@@ -108,6 +107,12 @@ int	ft_export(int ac, char **av, t_list **env)
 			free(tmp);
 			if (ft_dup_to_list(av, &env))
 				return (1);
+		}
+		else
+		{
+			if (!ft_is_env_var(*av, *env))
+				if (ft_dup_to_list(av, &env))
+					return (1);
 		}
 		av++;
 	}
