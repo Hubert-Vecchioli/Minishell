@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:50:03 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/29 11:26:00 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:10:40 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ static int	ft_error_check(char *av)
 		return (1);
 	}
 	else if (ft_strchr_count(av, '=') == 0
-		&& ft_has_special_char(av, strlen(av)))
+		&& ft_has_special_char(av, ft_strlen(av)))
 	{
 		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 		ft_putchar_fd(ft_has_special_char(av,
-				strlen(av)), STDERR_FILENO);
+				ft_strlen(av)), STDERR_FILENO);
 		ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 		return (1);
 	}

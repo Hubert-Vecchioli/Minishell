@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:05:21 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/29 11:26:09 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:10:54 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_is_var_in_env(char *key, t_list **lst_env)
 
 int	ft_error_check(char *av)
 {
-	if (ft_has_special_char(av, strlen(av)))
+	if (ft_has_special_char(av, ft_strlen(av)))
 	{
 		ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
 		ft_putstr_fd(av, STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:59:16 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/07/29 10:42:46 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:26:24 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_clean_prompt(int sig)
 {
 	(void)sig;
 	write(1, "\n", STDOUT_FILENO);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	// rl_replace_line("", 0);
+	// rl_on_new_line();
+	// rl_redisplay();
 	ft_set_status(130);
 }
 
